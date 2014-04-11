@@ -20,7 +20,7 @@ namespace DeezerRec
             App.WaveIn = new WasapiLoopbackCapture();
             App.WaveIn.DataAvailable += WaveIn_DataAvailable;
             
-            WebBrowser.Navigate("http://localhost:8080/", "_self", null, null);
+            WebBrowser.Navigate("http://localhost:8080/", "TargetFrame", null, null);
         }
 
         private void End_OnClick(object sender, RoutedEventArgs e)

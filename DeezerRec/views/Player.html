@@ -1,73 +1,26 @@
 ﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Deezer Rec</title>
+</head>
 <body>
     <div id="console"></div>
+    <div>
+        <div>User: <span id="userName"></span></div>
+        <div>Track: <span id="track"></span></div>
+        <div>Position: <span id="position"></span></div>
+    </div>
     <div id="dz-root"></div>
 
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="http://cdns-files.deezer.com/js/min/dz.js"></script>
-
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://localhost:8080/Scripts/DeezerRec.js"></script>
+    <script src="http://localhost:8080/Scripts/Common.js"></script>
+    <script src="http://localhost:8080/Scripts/Player.js"></script>
+    
     <script>
-
-        var currentSongStarted = false;
-        var loggedIn = false;
-
-        function log(message) {
-            document.getElementById('console').innerHTML = document.getElementById('console').innerHTML + ' ' + message;
-        }
-
-        DZ.init({
-            appId: '135291',
-            channelUrl: 'http://localhost:8080/Include',
-            player: {
-                onload: function (response) {
-                    DZ.player.playTracks([76255054, 76266758], false);
-
-                    setTimeout(function () {
-                        DZ.player.play();
-                        loggedIn = true;
-                    }, 1000);
-                }
-            }
-        });
-
-        DZ.login(function (response) {
-            if (response.authResponse) {
-                DZ.api('/user/me', function (response) { log('Good to see you, ' + response.name + '.<br />'); });
-            } else {
-                log('User cancelled login or did not fully authorize.');
-            }
-        }, { perms: 'basic_access,email' });
-
-        DZ.Event.subscribe('current_track', function (track, evt_name) {
-            if (loggedIn) {
-                $.get("http://localhost:8080/Start/" + track.track.title + "/" + track.track.album.title, function() {
-                });
-            }
-        });
-
-        DZ.Event.subscribe('player_position', function (e) {
-
-            if (e[0] > 0 && e[1] > 0) {
-                currentSongStarted = true;
-                log('starting recording <br/>');
-            }
-
-            if (currentSongStarted) {
-                log("current: " + e[0] + '<br />');
-                log("total: " + e[1] + '<br />');
-            }
-
-            if (e[0] == 0 && e[1] > 0 && currentSongStarted == true) {
-
-                $.get("http://localhost:8080/End", function () {
-                });
-
-                currentSongStarted = false;
-                log('finished recording <br />');
-            }
-        });
-
+        var player = new DeezerRec.Player('135291', 'http://localhost:8080/Include');
+        player.init();
     </script>
 </body>
 </html>
