@@ -1,4 +1,5 @@
 ﻿using Nancy;
+using NAudio.Lame;
 using NAudio.Wave;
 
 namespace DeezerRec
@@ -18,9 +19,8 @@ namespace DeezerRec
                     App.WaveFileWritter.Dispose();
                 }
                 
-                App.FileName = string.Format(@"C:\{0} - {1}.wav", _.band, _.title);
-                App.WaveFileWritter = new WaveFileWriter(App.FileName, App.WaveIn.WaveFormat);
-
+                App.FileName = string.Format(@"C:\{0} - {1}.mp3", _.band, _.title);
+                App.LameMp3FileWriter = new LameMP3FileWriter(App.FileName, App.WaveIn.WaveFormat, LAMEPreset.ABR_128);
                 App.WaveIn.StartRecording();
 
                 return string.Empty;
@@ -36,7 +36,7 @@ namespace DeezerRec
         
         void WaveIn_RecordingStopped(object sender, StoppedEventArgs e)
         {
-            App.WaveFileWritter.Dispose();
+            App.LameMp3FileWriter.Dispose();
         }
     }
 }

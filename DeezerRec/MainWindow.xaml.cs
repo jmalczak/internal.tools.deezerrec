@@ -18,9 +18,9 @@ namespace DeezerRec
         private void Start_OnClick(object sender, RoutedEventArgs e)
         {
             App.WaveIn = new WasapiLoopbackCapture();
-            App.WaveIn.DataAvailable += WaveIn_DataAvailable;
-            
-            WebBrowser.Navigate("http://localhost:8080/", "TargetFrame", null, null);
+            App.WaveIn.DataAvailable += WaveIn_DataAvailable;            
+            WebBrowserClearCache.Clear();
+            WebBrowser.Navigate("http://localhost:8080/");
         }
 
         private void End_OnClick(object sender, RoutedEventArgs e)
@@ -29,7 +29,7 @@ namespace DeezerRec
 
         void WaveIn_DataAvailable(object sender, WaveInEventArgs e)
         {
-            App.WaveFileWritter.Write(e.Buffer, 0, e.BytesRecorded);
+            App.LameMp3FileWriter.Write(e.Buffer, 0, e.BytesRecorded);
         }
     }
 }
