@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 // Visual C# version of Q326201
-namespace DeezerRec
+namespace DeezerRec.Code.WebBrowser
 {
     // Class for deleting the cache.
     class WebBrowserClearCache

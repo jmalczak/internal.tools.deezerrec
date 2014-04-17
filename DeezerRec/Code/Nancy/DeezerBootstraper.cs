@@ -1,7 +1,7 @@
 ﻿using Nancy;
 using Nancy.Conventions;
 
-namespace DeezerRec
+namespace DeezerRec.Code.Nancy
 {
 
     public class DeezerBootstraper : DefaultNancyBootstrapper
@@ -9,7 +9,7 @@ namespace DeezerRec
         protected override void ConfigureConventions(NancyConventions conventions)
         {
             base.ConfigureConventions(conventions);
-            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("Scripts", @"scripts"));
+            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("Web", @"Web"));
         }
     }
 }
