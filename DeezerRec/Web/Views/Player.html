@@ -5,6 +5,8 @@
     <link href="http://localhost:8080/Web/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://localhost:8080/Web/Bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="http://localhost:8080/Web/Styles/deezer.css" rel="stylesheet">
+    <link href="http://localhost:8080/Web/scripts/bower/typeahead.js-bootstrap.css/typeahead.js-bootstrap.css" rel="stylesheet" />
+    <link href="http://localhost:8080/Web/styles/typeahead.css" rel="stylesheet" />
 </head>
 <body>
     <div id="dz-root"></div>
@@ -24,16 +26,16 @@
                 <div class="col-xs-6">
                     <div class="container">
                         <div class="row">
-                            <input type="text" id="albumId" class="form-control pull-left" placeholder="Album Id" style="width: 230px">
-                            <button type="button" class="btn btn-sm btn-default" style="margin-top: 2px; margin-left: 10px; ">Search</button>
+                            <input type="text" data-provide="typeahead" id="albumId" class="form-control pull-left" placeholder="Album Id" style="width: 230px">
+                            <button type="button" class="btn btn-sm btn-default" style="margin-bottom: 27px;">Search</button>
                         </div>
-                        <div class="row" style="padding-top: 10px;">
-                            search result
+                        <div class="row" style="padding-top: 10px;" id="albumItems">
+
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-6">
-                    <h2>Album Details</h2>
+                    <h5>Album Details</h5>
                     <h5 id="artist"></h5>
                     <h5 id="album"></h5>
                     <h5 id="title"></h5>
@@ -48,16 +50,19 @@
             <button type="button" class="btn btn-sm btn-default" id="logIn">
                 <span class="glyphicon glyphicon-user"></span>
             </button>
-            <button type="button" class="btn btn-sm btn-success" id="startRecording">Start Recording</button>
-            <button type="button" class="btn btn-sm btn-danger" id="endRecording">End Recording</button>
+            <button type="button" class="btn btn-sm btn-success" id="startRecording" disabled="disabled">Start Recording</button>
+            <button type="button" class="btn btn-sm btn-danger" id="endRecording" disabled="disabled">End Recording</button>
         </div>
     </div>
 
     <script src="http://cdns-files.deezer.com/js/min/dz.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://localhost:8080/Web/Bootstrap/js/bootstrap.min.js"></script>
+    <script src="http://localhost:8080/Web/scripts/bower/typeahead.js/dist/bloodhound.min.js"></script>
+    <script src="http://localhost:8080/Web/scripts/bower/typeahead.js/dist/typeahead.bundle.min.js"></script>
+    <script src="http://localhost:8080/Web/scripts/bower/typeahead.js/dist/typeahead.jquery.min.js"></script>
     <script src="http://localhost:8080/Web/Scripts/DeezerRec.js"></script>
     <script src="http://localhost:8080/Web/Scripts/Common.js"></script>
     <script src="http://localhost:8080/Web/Scripts/Player.js"></script>
-    <script src="http://localhost:8080/Web/Bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

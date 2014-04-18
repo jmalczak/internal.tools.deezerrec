@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeezerRec", "DeezerRec\DeezerRec.csproj", "{A5849891-05F4-4FB3-8E09-05393F19B9DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeezerRec.WebDebug", "DeezerRec.WebDebug\DeezerRec.WebDebug.csproj", "{B46F72D7-86F5-4294-9B59-22E055EBFEA5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A5849891-05F4-4FB3-8E09-05393F19B9DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5849891-05F4-4FB3-8E09-05393F19B9DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5849891-05F4-4FB3-8E09-05393F19B9DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B46F72D7-86F5-4294-9B59-22E055EBFEA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B46F72D7-86F5-4294-9B59-22E055EBFEA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B46F72D7-86F5-4294-9B59-22E055EBFEA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B46F72D7-86F5-4294-9B59-22E055EBFEA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
