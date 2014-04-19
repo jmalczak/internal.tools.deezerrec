@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeezerRec", "DeezerRec\Deez
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeezerRec.WebDebug", "DeezerRec.WebDebug\DeezerRec.WebDebug.csproj", "{B46F72D7-86F5-4294-9B59-22E055EBFEA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeezerRec.Lib", "DeezerRec.Lib\DeezerRec.Lib.csproj", "{51831C57-9C91-4B08-9D74-38268F9D16F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B46F72D7-86F5-4294-9B59-22E055EBFEA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B46F72D7-86F5-4294-9B59-22E055EBFEA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B46F72D7-86F5-4294-9B59-22E055EBFEA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51831C57-9C91-4B08-9D74-38268F9D16F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51831C57-9C91-4B08-9D74-38268F9D16F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51831C57-9C91-4B08-9D74-38268F9D16F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51831C57-9C91-4B08-9D74-38268F9D16F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,7 +15,7 @@ namespace DeezerRec.View
 
         public void Navigate()
         {
-            WebBrowser.Navigate("http://localhost:8080/Web/Views/Player.html");
+            WebBrowser.Navigate("http://localhost:8080/");
         }
     }
 }

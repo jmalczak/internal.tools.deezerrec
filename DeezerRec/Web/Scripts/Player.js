@@ -1,10 +1,17 @@
-﻿DeezerRec.Player = function (appId, channelUrl) {
+﻿DeezerRec.Player = function (appId, rootUrl) {
     var self = this;
 
     self.appId = appId;
-    self.albumId = undefined;
-    self.channelUrl = channelUrl;
+    self.rootUrl = rootUrl;
+
+    self.channelUrl = rootUrl + '/Web/Views/Include.html';
     self.Common = new DeezerRec.Common();
+
+    self.user = ko.observable(undefined);
+    self.initialized = ko.observable(undefined);
+
+    self.currentAlbum = ko.observable(undefined);
+    self.currentTrack = ko.observable(undefined);
 
     var currentSongStarted = false;
 
@@ -19,21 +26,24 @@
                     window.DZ.Event.subscribe('current_track', self.currentTrackEvent);
                     window.DZ.Event.subscribe('player_position', self.playerPositionEvent);
 
-                    window.DZ.login(function (response) {
-                        if (response.authResponse) {
-                            window.DZ.api('/user/me', function (userResponse) {
-                                $("#loggedInSpan").show();
-                                $('#userName').text(userResponse.name);
-
-                                $('#startRecording').removeAttr("disabled");
-                                $('#endRecording').removeAttr("disabled");
-                            });
-                        }
-                    },
-                    { perms: 'basic_access,email' });
+                    self.initialized(true);
                 }
             }
         });
+    };
+
+    self.logIn = function() {
+        window.DZ.login(function(response) {
+            if (response.authResponse) {
+                window.DZ.api('/user/me', function(userResponse) {
+                    self.user(userResponse.name);
+
+                    $('#startRecording').removeAttr("disabled");
+                    $('#endRecording').removeAttr("disabled");
+                });
+            }
+        },
+        { perms: 'basic_access,email' });
     };
 
     self.playerPositionEvent = function (e) {
@@ -60,7 +70,7 @@
     self.stopRecordingAndPlayNext = function () {
         $.ajax({
             type: "POST",
-            url: 'http://localhost:8080/End',
+            url:  self.rootUrl + '/End',
             success: function () {
                 self.processAlbum();
             }
@@ -71,7 +81,7 @@
     self.stopRecording = function () {
         $.ajax({
             type: "POST",
-            url: 'http://localhost:8080/End',
+            url: self.rootUrl + '/End',
             success: function () {
                 alert('Stopped');
             }
@@ -82,29 +92,28 @@
 
         if (self.album.tracks.data.length > self.albumTrackId) {
 
-            self.currentTrack = self.album.tracks.data[self.albumTrackId];
+            self.currentTrack(self.album.tracks.data[self.albumTrackId]);
 
             $.ajax({
                 type: "POST",
-                url: 'http://localhost:8080/Start',
-                data: { Album: self.album.title, Title: self.currentTrack.title, Artist: self.album.artist.name },
+                url: self.rootUrl + '/Start',
+                data: { Album: self.album.title, Title: self.currentTrack().title, Artist: self.album.artist.name },
                 success: function () {
 
                     $('#album').text(self.album.title);
                     $('#artist').text(self.album.artist.name);
-                    $('#title').text(self.currentTrack.title);
 
                     self.albumTrackId++;
-                    window.DZ.player.playTracks([self.currentTrack.id]);
+                    window.DZ.player.playTracks([self.currentTrack().id]);
                 }
             });
         }
     },
 
     self.startRecording = function () {
-        if (self.albumId != undefined) {
+        if (self.currentAlbum() != undefined) {
 
-            var url = 'http://api.deezer.com/album/' + self.albumId + '?output=jsonp';
+            var url = 'http://api.deezer.com/album/' + self.currentAlbum().id + '?output=jsonp';
 
             $.ajax({
                 type: "GET",
@@ -123,11 +132,11 @@
     };
 
     self.setCurrentAlbumId = function (album) {
-        self.albumId = album.object.id;
+        self.currentAlbum(album.object);
     };
 };
 
-var bestPictures = new Bloodhound({
+var deezerAlbums = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
 
@@ -148,14 +157,16 @@ var bestPictures = new Bloodhound({
     }
 });
 
-bestPictures.initialize();
-
-window.Player = new DeezerRec.Player('135291', 'http://localhost:8080/Web/Views/Include.html');
-
 $(document).ready(function () {
 
+    window.Player = new DeezerRec.Player('135291', $('body').data("service-url"));
+    deezerAlbums.initialize();
+    ko.applyBindings(window.Player);
+
+    window.Player.init();
+
     $('#logIn').click(function () {
-        window.Player.init();
+        window.Player.logIn();
     });
 
     $("#startRecording").click(function () {
@@ -174,7 +185,7 @@ $(document).ready(function () {
     {
         name: 'albums',
         displayKey: 'value',
-        source: bestPictures.ttAdapter()
+        source: deezerAlbums.ttAdapter()
     });
 
     $(document).on('typeahead:selected', function (event, object) {

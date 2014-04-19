@@ -1,0 +1,72 @@
+﻿@using Nancy
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Deezer Rec</title>
+	
+    <link href='@Url.Content("~/Web/Bootstrap/css/bootstrap.min.css")' rel="stylesheet">
+    <link href='@Url.Content("~/Web/Bootstrap/css/bootstrap-theme.min.css")' rel="stylesheet">
+    <link href='@Url.Content("~/Web/Styles/deezer.css")' rel="stylesheet">
+    <link href='@Url.Content("~/Web/Styles/typeahead.css")' rel="stylesheet" />
+</head>
+<body data-service-url='@Html.RenderContext.Context.Request.Url'>
+    <div id="dz-root"></div>
+    
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" style="padding-right: 0;" href="https://github.com/jmalczak" target="_blank">DeezerRec</a>
+                <span class="navbar-brand" id="loggedInSpan" data-bind="visible: user() != null," style="display: none;">,logged in as <span id="userName" data-bind="text: user"></span></span>
+             </div>
+        </div>
+    </div>
+
+    <div id="wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="container">
+                        <div class="row">
+                            <input type="text" data-provide="typeahead" id="albumId" class="form-control pull-left" placeholder="Album Id" style="width: 230px">
+                            <button type="button" class="btn btn-sm btn-default" style="margin-bottom: 27px;">Search</button>
+                        </div>
+                        <div class="row" style="padding-top: 10px;" id="albumItems">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div data-bind="with: currentTrack, visible: currentTrack() != null" style="display: none;">
+                        <h5>Album Details</h5>
+                        <h5 id="artist" data-bind="text: artist.name"></h5>
+                        <h5 id="album" data-bind="text: album.title"></h5>
+                        <h5 id="title" data-bind="text: title"></h5>
+                    </div>
+                </div>
+            </div>
+            <div id="console"></div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="container" style="padding-top: 15px;text-align: right;">
+            <button type="button" class="btn btn-sm btn-default" data-bind="enabled: initialized() != undefined" id="logIn">
+                <span class="glyphicon glyphicon-user"></span>
+            </button>
+            <button type="button" class="btn btn-sm btn-success" id="startRecording" disabled="disabled">Start Recording</button>
+            <button type="button" class="btn btn-sm btn-danger" id="endRecording" disabled="disabled">End Recording</button>
+        </div>
+    </div>
+
+    <script src="http://cdns-files.deezer.com/js/min/dz.js"></script>
+    <script src='@Url.Content("~/Web/Scripts/Bower/jquery/dist/jquery.js")'></script>
+    <script src='@Url.Content("~/Web/Bootstrap/js/bootstrap.min.js")'></script>
+    <script src='@Url.Content("~/Web/scripts/bower/typeahead.js/dist/bloodhound.min.js")'></script>
+    <script src='@Url.Content("~/Web/scripts/Bower/typeahead.js/dist/typeahead.bundle.min.js")'></script>
+    <script src='@Url.Content("~/Web/Scripts/Bower/knockoutjs/build/output/knockout-latest.js")'></script>
+    <script src='@Url.Content("~/Web/Scripts/DeezerRec.js")'></script>
+    <script src='@Url.Content("~/Web/Scripts/Common.js")'></script>
+    <script src='@Url.Content("~/Web/Scripts/Player.js")'></script>
+	
+</body>
+</html>
