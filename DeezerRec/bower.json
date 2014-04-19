@@ -15,5 +15,9 @@
     "Web/Scripts/Bower",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "typeahead.js": "~0.10.2",
+    "knockoutjs": "~3.1.0"
+  }
 }
