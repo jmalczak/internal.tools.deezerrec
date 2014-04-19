@@ -8,8 +8,14 @@
     self.Common = new DeezerRec.Common();
 
     self.user = ko.observable(undefined);
-    self.initialized = ko.observable(undefined);
+    self.userUrl = ko.observable(undefined);
 
+    self.initialized = ko.observable(undefined);
+    self.authenticated = ko.observable(undefined);
+
+    self.tracksToRecord = ko.observableArray([]);
+
+    self.trackNumber = ko.observable(0);
     self.currentAlbum = ko.observable(undefined);
     self.currentTrack = ko.observable(undefined);
 
@@ -32,12 +38,16 @@
         });
     };
 
-    self.logIn = function() {
-        window.DZ.login(function(response) {
+    self.logIn = function () {
+        window.DZ.login(function (response) {
             if (response.authResponse) {
-                window.DZ.api('/user/me', function(userResponse) {
+                window.DZ.api('/user/me', function (userResponse) {
                     self.user(userResponse.name);
+                    self.userUrl(userResponse.link);
 
+                    self.authenticated(true);
+
+                    $.unblockUI();
                     $('#startRecording').removeAttr("disabled");
                     $('#endRecording').removeAttr("disabled");
                 });
@@ -70,7 +80,7 @@
     self.stopRecordingAndPlayNext = function () {
         $.ajax({
             type: "POST",
-            url:  self.rootUrl + '/End',
+            url: self.rootUrl + '/End',
             success: function () {
                 self.processAlbum();
             }
@@ -89,106 +99,102 @@
     };
 
     self.processAlbum = function () {
+        if (self.tracksToRecord().length > self.trackNumber()) {
 
-        if (self.album.tracks.data.length > self.albumTrackId) {
-
-            self.currentTrack(self.album.tracks.data[self.albumTrackId]);
+            var trackObject = self.tracksToRecord()[self.trackNumber()];
+            self.currentTrack(trackObject.track);
 
             $.ajax({
                 type: "POST",
                 url: self.rootUrl + '/Start',
-                data: { Album: self.album.title, Title: self.currentTrack().title, Artist: self.album.artist.name },
+                data: { Album: trackObject.album.title, Title: self.currentTrack().title, Artist: trackObject.album.artist.name },
                 success: function () {
 
-                    $('#album').text(self.album.title);
-                    $('#artist').text(self.album.artist.name);
-
-                    self.albumTrackId++;
+                    self.trackNumber(self.trackNumber() + 1);
                     window.DZ.player.playTracks([self.currentTrack().id]);
                 }
             });
         }
     },
 
-    self.startRecording = function () {
-        if (self.currentAlbum() != undefined) {
+    self.setCurrentAlbum = function () {
+        var url = 'http://api.deezer.com/album/' + self.currentAlbum.id + '?output=jsonp';
 
-            var url = 'http://api.deezer.com/album/' + self.currentAlbum().id + '?output=jsonp';
+        $.ajax({
+            type: "GET",
+            dataType: "JSONP",
+            url: url,
+            success: function (fullAlbumData) {
+                $.each(fullAlbumData.tracks.data, function (i, item) {
+                    self.tracksToRecord.push({ album: self.currentAlbum, track: item });
+                });
 
-            $.ajax({
-                type: "GET",
-                dataType: "JSONP",
-                url: url,
-                success: function (album) {
-
-                    debugger;
-
-                    self.album = album;
-                    self.albumTrackId = 0;
-                    self.processAlbum();
-                }
-            });
-        }
-    };
-
-    self.setCurrentAlbumId = function (album) {
-        self.currentAlbum(album.object);
+                console.log(self.tracksToRecord());
+            }
+        });
     };
 };
-
-var deezerAlbums = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-
-    remote: {
-        url: 'http://api.deezer.com/search/album?output=jsonp&q=%QUERY&callback=?&limit=15',
-        ajax: $.ajax({
-            type: 'GET', dataType: 'jsonp', jsonp: 'jsonp'
-        }),
-        filter: function (d) {
-            var albums = [];
-
-            $.each(d.data, function (index, value) {
-                albums.push({ index: index, value: value.artist.name + ' - ' + value.title, object: value });
-            });
-
-            return albums;
-        }
-    }
-});
 
 $(document).ready(function () {
 
     window.Player = new DeezerRec.Player('135291', $('body').data("service-url"));
-    deezerAlbums.initialize();
     ko.applyBindings(window.Player);
 
     window.Player.init();
+
+    $('#addAlbum').click(function () {
+        window.Player.setCurrentAlbum();
+    });
 
     $('#logIn').click(function () {
         window.Player.logIn();
     });
 
     $("#startRecording").click(function () {
-        window.Player.startRecording();
+        window.Player.processAlbum();
     });
 
     $("#endRecording").click(function () {
         window.Player.stopRecording();
     });
 
-    $('#albumId').typeahead({
-        hint: true,
-        highlight: true,
-        minLength: 1
-    },
-    {
-        name: 'albums',
-        displayKey: 'value',
-        source: deezerAlbums.ttAdapter()
+    $("#searchKey").kendoAutoComplete({
+        dataTextField: "fullName",
+        select: function (e) {
+            window.Player.currentAlbum = this.dataItem(e.item.index()).item;
+        },
+        dataSource: {
+            schema: {
+                data: function (response) {
+                    var convertedData = [];
+
+                    $.each(response.data, function (i, item) {
+                        convertedData.push({ fullName: item.artist.name + ' - ' + item.title, item: item });
+                    });
+
+                    return convertedData;
+                }
+            },
+            serverFiltering: true,
+            transport: {
+                read: {
+                    type: "GET",
+                    url: "http://api.deezer.com/search/album?output=jsonp&callback=?&limit=15",
+                    dataType: "jsonp"
+                },
+                parameterMap: function (data) {
+                    return { q: data.filter.filters[0].value };
+                }
+            }
+        }
     });
 
-    $(document).on('typeahead:selected', function (event, object) {
-        window.Player.setCurrentAlbumId(object);
+    $.blockUI({
+        message: null,
+        overlayCSS: {
+            backgroundColor: '#000',
+            opacity: 0.6,
+            cursor: 'default'
+        }
     });
 });

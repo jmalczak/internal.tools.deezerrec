@@ -1,23 +1,32 @@
-﻿@using Nancy
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Deezer Rec</title>
-	
+
     <link href='@Url.Content("~/Web/Bootstrap/css/bootstrap.min.css")' rel="stylesheet">
     <link href='@Url.Content("~/Web/Bootstrap/css/bootstrap-theme.min.css")' rel="stylesheet">
     <link href='@Url.Content("~/Web/Styles/deezer.css")' rel="stylesheet">
-    <link href='@Url.Content("~/Web/Styles/typeahead.css")' rel="stylesheet" />
+    <link href='@Url.Content("~/web/scripts/bower/kendo-ui-core/styles/web/kendo.common-bootstrap.core.min.css")' rel="stylesheet">
+    <link href='@Url.Content("~/web/scripts/bower/kendo-ui-core/styles/web/kendo.common.core.min.css")' rel="stylesheet">
+    <link href='@Url.Content("~/web/scripts/bower/kendo-ui-core/styles/web/kendo.default.min.css")' rel="stylesheet">
+    <link href='@Url.Content("~/web/scripts/bower/kendo-ui-core/styles/web/kendo.bootstrap.min.css")' rel="stylesheet">
+
 </head>
 <body data-service-url='@Html.RenderContext.Context.Request.Url'>
     <div id="dz-root"></div>
-    
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" style="padding-right: 0;" href="https://github.com/jmalczak" target="_blank">DeezerRec</a>
-                <span class="navbar-brand" id="loggedInSpan" data-bind="visible: user() != null," style="display: none;">,logged in as <span id="userName" data-bind="text: user"></span></span>
-             </div>
+                <a class="navbar-brand" href="https://github.com/jmalczak" target="_blank">DeezerRec</a>
+            </div>
+            <div class="navbar-collapse collapse" id="loggedInSpan" data-bind="visible: user() != null" style="display: none;">
+                <ul class="nav navbar-nav navbar-right" data-bind="visible: user() != null">
+                    <li class="active"><a href="#" target="_blank" data-bind="attr: { href: userUrl }, text: user"></a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -25,14 +34,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-6">
-                    <div class="container">
-                        <div class="row">
-                            <input type="text" data-provide="typeahead" id="albumId" class="form-control pull-left" placeholder="Album Id" style="width: 230px">
-                            <button type="button" class="btn btn-sm btn-default" style="margin-bottom: 27px;">Search</button>
-                        </div>
-                        <div class="row" style="padding-top: 10px;" id="albumItems">
-
-                        </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search key" id="searchKey" data-provide="typeahead">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="addAlbum">Add</button>
+                        </span>
+                    </div>
+                    <div>
+                        <ul class="list-group" style="margin-top: 10px;" data-bind="foreach: tracksToRecord">
+                            <li class="list-group-item" data-bind="attr: { 'data-track-id' : track.id }">
+                                <span data-bind="text: album.title"></span> - <span data-bind="text: track.title"></span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-xs-6">
@@ -48,9 +61,9 @@
         </div>
     </div>
 
-    <div id="footer">
+    <div id="footer" class="navbar navbar-default navbar-fixed-bottom">
         <div class="container" style="padding-top: 15px;text-align: right;">
-            <button type="button" class="btn btn-sm btn-default" data-bind="enabled: initialized() != undefined" id="logIn">
+            <button type="button" class="btn btn-sm btn-default" data-bind="enabled: initialized() != undefined, visible: authenticated() == undefined" id="logIn">
                 <span class="glyphicon glyphicon-user"></span>
             </button>
             <button type="button" class="btn btn-sm btn-success" id="startRecording" disabled="disabled">Start Recording</button>
@@ -58,15 +71,19 @@
         </div>
     </div>
 
+    <script src='@Url.Content("~/Web/scripts/bower/kendo-ui-core/js/jquery.min.js")'></script>
+    <script src='@Url.Content("~/web/scripts/bower/kendo-ui-core/js/kendo.core.min.js")'></script>
+    <script src='@Url.Content("~/web/scripts/bower/kendo-ui-core//js/kendo.data.min.js")'></script>
+    <script src='@Url.Content("~/web/scripts/bower/kendo-ui-core/js/kendo.popup.min.js")'></script>
+    <script src='@Url.Content("~/web/scripts/bower/kendo-ui-core/js/kendo.list.min.js")'></script>
+    <script src='@Url.Content("~/web/scripts/bower/kendo-ui-core/js/kendo.autocomplete.min.js")'></script>
     <script src="http://cdns-files.deezer.com/js/min/dz.js"></script>
-    <script src='@Url.Content("~/Web/Scripts/Bower/jquery/dist/jquery.js")'></script>
     <script src='@Url.Content("~/Web/Bootstrap/js/bootstrap.min.js")'></script>
-    <script src='@Url.Content("~/Web/scripts/bower/typeahead.js/dist/bloodhound.min.js")'></script>
-    <script src='@Url.Content("~/Web/scripts/Bower/typeahead.js/dist/typeahead.bundle.min.js")'></script>
     <script src='@Url.Content("~/Web/Scripts/Bower/knockoutjs/build/output/knockout-latest.js")'></script>
+    <script src='@Url.Content("~/web/scripts/bower/blockui/jquery.blockui.js")'></script>
     <script src='@Url.Content("~/Web/Scripts/DeezerRec.js")'></script>
     <script src='@Url.Content("~/Web/Scripts/Common.js")'></script>
     <script src='@Url.Content("~/Web/Scripts/Player.js")'></script>
-	
+
 </body>
 </html>
