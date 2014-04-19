@@ -1,0 +1,19 @@
+{
+  "name": "DeezerRec",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jmalczak/DeezerRec",
+  "description": "Deezer to mp3 recorder",
+  "keywords": [
+    "deezer",
+    "record",
+    "mp3"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "Web/Scripts/Bower",
+    "test",
+    "tests"
+  ]
+}
