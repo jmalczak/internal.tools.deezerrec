@@ -10,9 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeezerRec.Wpf", "DeezerRec.Wpf\DeezerRec.Wpf.csproj", "{A5849891-05F4-4FB3-8E09-05393F19B9DE}"
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "DeezerRec.Setup", "DeezerRec.Setup\DeezerRec.Setup.isproj", "{0CB6F9F1-B379-496D-AD2E-821A9567CC19}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A5849891-05F4-4FB3-8E09-05393F19B9DE} = {A5849891-05F4-4FB3-8E09-05393F19B9DE}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

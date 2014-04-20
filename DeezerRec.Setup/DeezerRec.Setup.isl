@@ -339,7 +339,7 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>DeezerRec.Wpf.Primary_output</td><td>{F3DB5666-A9FB-49A7-92D9-CC8DB3D24B3E}</td><td>INSTALLDIR</td><td>2</td><td/><td>deezerrec.wpf.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>DeezerRec.Wpf.Primary_output1</td><td>{B18BD6C8-7C96-4EF3-81F7-4A13F8FD63AA}</td><td>INSTALLDIR</td><td>2</td><td/><td>deezerrec.wpf.primary_output1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{9F924921-73B8-4637-AD17-6E7242DCC9FE}</td><td>WEB</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{32310563-6E48-4023-A35B-3520BCC6186A}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT10</td><td>{1638A24B-3281-4670-BC0A-ACEF1632BF07}</td><td>JQUERY</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -555,6 +555,8 @@
 		<row><td>ISX_DEFAULTCOMPONENT97</td><td>{FBE09AF2-A3B6-48FC-A569-B70B2FCAA93F}</td><td>LIB3</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT98</td><td>{F2E5D406-E713-477F-92E0-8ADB54E6ACD3}</td><td>COFFEE_SCRIPT1</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT99</td><td>{DD25EBFE-7B4A-48D2-915C-E993150D1F79}</td><td>COLORS</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>libmp3lame.32.dll</td><td>{32A762E1-CF38-487D-A281-D2CD4FB96A39}</td><td>INSTALLDIR</td><td>2</td><td/><td>libmp3lame.32.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>libmp3lame.64.dll</td><td>{C69B920A-9924-4082-9831-914E37F10821}</td><td>INSTALLDIR</td><td>2</td><td/><td>libmp3lame.64.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1265,7 +1267,6 @@
 		<col key="yes" def="s72">Component_</col>
 		<row><td>BOOTSTRAP</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>BOWER</td><td>ISX_DEFAULTCOMPONENT8</td></row>
-		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>LIB3</td><td>ISX_DEFAULTCOMPONENT97</td></row>
 		<row><td>NODE_MODULES</td><td>ISX_DEFAULTCOMPONENT80</td></row>
 		<row><td>NODE_MODULES1</td><td>ISX_DEFAULTCOMPONENT90</td></row>
@@ -2308,7 +2309,7 @@
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
-		<row><td>AlwaysInstall</td><td>DeezerRec.Wpf.Primary_output</td></row>
+		<row><td>AlwaysInstall</td><td>DeezerRec.Wpf.Primary_output1</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT10</td></row>
@@ -2524,6 +2525,8 @@
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT97</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT98</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT99</td></row>
+		<row><td>AlwaysInstall</td><td>libmp3lame.32.dll</td></row>
+		<row><td>AlwaysInstall</td><td>libmp3lame.64.dll</td></row>
 	</table>
 
 	<table name="File">
@@ -2788,7 +2791,7 @@
 		<row><td>dateformat.js</td><td>ISX_DEFAULTCOMPONENT102</td><td>DATEFO~1.JS|dateformat.js</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\knockoutjs\node_modules\grunt\node_modules\dateformat\lib\dateformat.js</td><td>1</td><td/></row>
 		<row><td>deezer.css</td><td>ISX_DEFAULTCOMPONENT213</td><td>deezer.css</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Styles\deezer.css</td><td>1</td><td/></row>
 		<row><td>deezerrec.js</td><td>ISX_DEFAULTCOMPONENT7</td><td>DEEZER~1.JS|DeezerRec.js</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\DeezerRec.js</td><td>1</td><td/></row>
-		<row><td>deezerrec.wpf.primary_output</td><td>DeezerRec.Wpf.Primary_output</td><td>DeezerRec.Wpf.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DeezerRec.Wpf&gt;|Built</td><td>3</td><td/></row>
+		<row><td>deezerrec.wpf.primary_output1</td><td>DeezerRec.Wpf.Primary_output1</td><td>DeezerRec.Wpf.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DeezerRec.Wpf&gt;|Built</td><td>3</td><td/></row>
 		<row><td>default.js</td><td>ISX_DEFAULTCOMPONENT151</td><td>default.js</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\knockoutjs\node_modules\grunt\node_modules\js-yaml\lib\js-yaml\schema\default.js</td><td>1</td><td/></row>
 		<row><td>defaults.js</td><td>ISX_DEFAULTCOMPONENT183</td><td>defaults.js</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\knockoutjs\node_modules\grunt\node_modules\minimatch\test\defaults.js</td><td>1</td><td/></row>
 		<row><td>deferred.js</td><td>ISX_DEFAULTCOMPONENT13</td><td>deferred.js</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\jquery\src\deferred.js</td><td>1</td><td/></row>
@@ -4081,6 +4084,8 @@
 		<row><td>leather2.png</td><td>ISX_DEFAULTCOMPONENT58</td><td>leather2.png</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\kendo-ui-core\src\styles\web\textures\leather2.png</td><td>1</td><td/></row>
 		<row><td>leather2.png1</td><td>ISX_DEFAULTCOMPONENT74</td><td>leather2.png</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\kendo-ui-core\styles\web\textures\leather2.png</td><td>1</td><td/></row>
 		<row><td>lexer.js</td><td>ISX_DEFAULTCOMPONENT98</td><td>lexer.js</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\knockoutjs\node_modules\grunt\node_modules\coffee-script\lib\coffee-script\lexer.js</td><td>1</td><td/></row>
+		<row><td>libmp3lame.32.dll</td><td>libmp3lame.32.dll</td><td>LIBMP3~1.DLL|libmp3lame.32.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\Lib\libmp3lame.32.dll</td><td>1</td><td/></row>
+		<row><td>libmp3lame.64.dll</td><td>libmp3lame.64.dll</td><td>LIBMP3~1.DLL|libmp3lame.64.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\Lib\libmp3lame.64.dll</td><td>1</td><td/></row>
 		<row><td>libpeerconnection.log</td><td>ISX_DEFAULTCOMPONENT166</td><td>LIBPEE~1.LOG|libpeerconnection.log</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\knockoutjs\node_modules\grunt\node_modules\js-yaml\node_modules\argparse\node_modules\underscore.string\libpeerconnection.log</td><td>1</td><td/></row>
 		<row><td>license</td><td>ISX_DEFAULTCOMPONENT76</td><td>LICENSE</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\knockoutjs\LICENSE</td><td>1</td><td/></row>
 		<row><td>license.txt</td><td>ISX_DEFAULTCOMPONENT118</td><td>LICENSE.txt</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\knockoutjs\node_modules\grunt\node_modules\findup-sync\node_modules\lodash\LICENSE.txt</td><td>1</td><td/></row>
@@ -4251,6 +4256,7 @@
 		<row><td>navbar.less7</td><td>ISX_DEFAULTCOMPONENT50</td><td>NAVBAR~1.LES|navbar.less</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\kendo-ui-core\src\styles\web\common-mobile\navbar.less</td><td>1</td><td/></row>
 		<row><td>networkerror.html</td><td>ISX_DEFAULTCOMPONENT16</td><td>NETWOR~1.HTM|networkerror.html</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\jquery\test\networkerror.html</td><td>1</td><td/></row>
 		<row><td>new_glob_optional_options.js</td><td>ISX_DEFAULTCOMPONENT117</td><td>NEW-GL~1.JS|new-glob-optional-options.js</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\knockoutjs\node_modules\grunt\node_modules\findup-sync\node_modules\glob\test\new-glob-optional-options.js</td><td>1</td><td/></row>
+		<row><td>nlog.config</td><td>ISX_DEFAULTCOMPONENT1</td><td>NLOG~1.CON|NLog.config</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\NLog.config</td><td>1</td><td/></row>
 		<row><td>nocase_nomagic.js</td><td>ISX_DEFAULTCOMPONENT117</td><td>NOCASE~1.JS|nocase-nomagic.js</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\knockoutjs\node_modules\grunt\node_modules\findup-sync\node_modules\glob\test\nocase-nomagic.js</td><td>1</td><td/></row>
 		<row><td>nocase_nomagic.js1</td><td>ISX_DEFAULTCOMPONENT133</td><td>NOCASE~1.JS|nocase-nomagic.js</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\knockoutjs\node_modules\grunt\node_modules\glob\test\nocase-nomagic.js</td><td>1</td><td/></row>
 		<row><td>nocontent.php</td><td>ISX_DEFAULTCOMPONENT17</td><td>NOCONT~1.PHP|nocontent.php</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Code\Malczak.Custom\DeezerRec\DeezerRec.Wpf\Web\Scripts\Bower\jquery\test\data\nocontent.php</td><td>1</td><td/></row>
@@ -4865,7 +4871,7 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
-		<row><td>DeezerRec.Wpf.Primary_output</td><td/><td/><td>_365B212E_B109_4743_A2A5_322EBD9D3621_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>DeezerRec.Wpf.Primary_output1</td><td/><td/><td>_4F59813B_1DE2_4B02_BFA1_9A87D3A397F9_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_C51C7E42_961F_400A_AFDB_AB7D9EAF795F_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_3CF82063_00A8_4586_8929_4C16E1DDA795_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT10</td><td/><td/><td>_D7CB5569_10F2_45EA_A3FA_DE08DB370008_FILTER</td><td/><td/><td/><td/></row>
@@ -5081,6 +5087,8 @@
 		<row><td>ISX_DEFAULTCOMPONENT97</td><td/><td/><td>_0BEC1913_522C_4FFA_A37A_FB2014FCE0C5_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT98</td><td/><td/><td>_A33FB712_47CB_43FE_A2BD_A1F127163D15_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT99</td><td/><td/><td>_A987E39A_E612_40F9_852A_0738B35CE506_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>libmp3lame.32.dll</td><td/><td/><td>_E06B4709_A88C_4021_B1F1_23222AA6A177_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>libmp3lame.64.dll</td><td/><td/><td>_9CAF785E_8016_4492_993F_9DF6ED7E4473_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -6511,7 +6519,8 @@
 		<row><td>IDS_SETUPEXE_EXPIRE_MSG</td><td>1033</td><td>This setup works until %s. The setup will now exit.</td><td>0</td><td/><td>-1574788041</td></row>
 		<row><td>IDS_SETUPEXE_LAUNCH_COND_E</td><td>1033</td><td>This setup was built with an evaluation version of InstallShield and can only be launched from setup.exe.</td><td>0</td><td/><td>-1574788041</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>-1574828905</td></row>
-		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td>Launch |Built</td><td>0</td><td/><td>-1440554976</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td>Deezer Recorder</td><td>0</td><td/><td>-1440556480</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td>Deezer Recorder</td><td>0</td><td/><td>-1440579968</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1033</td><td>From the list of servers below, select the database server you would like to target.</td><td>0</td><td/><td>-1574788041</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1033</td><td>From the list of catalog names below, select the database catalog you would like to target.</td><td>0</td><td/><td>-1574788041</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1033</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>-1574788041</td></row>
@@ -6912,6 +6921,7 @@
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\setupicon.ico</td><td>0</td></row>
 		<row><td>_Built_7DABB2C3BD53447E819A91275C82E0F6.exe</td><td/><td>&lt;VSSolutionFolder&gt;\DeezerRec.Wpf\Web\Img\rec.ico</td><td>0</td></row>
+		<row><td>_Built_D04CE21323F948288D80FAC4D32FA0B0.exe</td><td/><td>&lt;VSSolutionFolder&gt;\DeezerRec.Wpf\Web\Img\rec.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -7044,7 +7054,7 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{421545F1-4E4A-4B68-A584-1F6C0D0DCCAE}</td></row>
 		<row><td>ISUSSignature</td><td>{6C6D3D5E-4EED-4D5C-9E28-A0BB51DBED09}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewRelease</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewRelease,viewFeatureFiles,viewAppFiles,viewRealSetupDesign,viewSetupTypes,viewSupportFiles,viewISToday</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -7495,7 +7505,7 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
-		<row><td>_Built</td><td>DeezerRec.Wpf.Primary_output</td><td/><td>deezer_1_deezer_recorder1</td><td>2</td></row>
+		<row><td>_Built</td><td>DeezerRec.Wpf.Primary_output1</td><td/><td>deezer_1_deezer_recorder1</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -7581,7 +7591,7 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>_Built</td><td>deezer_1_deezer_recorder1</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>DeezerRec.Wpf.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_7DABB2C3BD53447E819A91275C82E0F6.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built</td><td>deezer_1_deezer_recorder1</td><td>##IDS_SHORTCUT_DISPLAY_NAME3##</td><td>DeezerRec.Wpf.Primary_output1</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_D04CE21323F948288D80FAC4D32FA0B0.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">
