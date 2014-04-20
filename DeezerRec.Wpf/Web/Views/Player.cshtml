@@ -21,7 +21,7 @@
         <div class="container">
             <div class="navbar-header">
                 <div class="pull-left" style="margin-top: 10px;margin-right: 10px;">
-                    <button type="button" class="btn btn-sm btn-default" data-bind="enabled: initialized() != undefined, visible: authenticated() == undefined" id="logIn"><span class="glyphicon glyphicon-user"></span> Log In</button>
+                    <button type="button" class="btn btn-sm btn-default" data-bind="enabled: initialized() != undefined, visible: authenticated() == undefined, click: logIn" id="logIn"><span class="glyphicon glyphicon-user"></span> Log In</button>
                 </div>
                 <a class="navbar-brand" href="https://github.com/jmalczak" target="_blank">DeezerRec</a>
             </div>
@@ -40,7 +40,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search key" id="searchKey" data-provide="typeahead">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" id="addAlbum">Add</button>
+                            <button class="btn btn-default" type="button" id="addAlbum" data-bind="click: addCurrentAlbum">Add</button>
                         </span>
                     </div>
                     <div>
@@ -50,7 +50,7 @@
                                     <div class="col-xs-10">
                                         <span data-bind="text: album.title"></span> - <span data-bind="text: track.title"></span>
                                     </div>
-                                    <div class="col-xs-1">
+                                    <div class="col-xs-1 text-right">
                                         <button type="button" class="btn btn-danger btn-xs" data-bind="click: $root.removeTrack"><span class=" glyphicon glyphicon-remove"></span></button>
                                     </div>
                                 </div>
@@ -95,15 +95,16 @@
         <div class="container" style="padding-top: 15px;">
             <div class="row" data-bind="visible: authenticated() == true">
                 <div class="col-xs-12">
-                    <div class="pull-left" style="width: 300px;">
-                        <button type="button" class="btn btn-success" id="startRecording">
+                    <div class="pull-left" style="width: 350px;">
+                        <button type="button" class="btn btn-success" id="startRecording" data-bind="click: playAndRecord">
                             <span class="glyphicon glyphicon-play"></span>
                             Play and Rec
                         </button>
-                        <button type="button" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-play"></span></button>
-                        <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-backward"></span></button>
-                        <button type="button" id="endRecording" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-stop"></span></button>
-                        <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-forward"></span></button>
+                        <button type="button" class="btn btn-sm btn-default" data-bind="click: play"><span class="glyphicon glyphicon-play"></span></button>
+                        <button type="button" id="stopRecording" data-bind="click: stop" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-stop"></span></button>
+                        <button type="button" class="btn btn-default btn-sm" data-bind="click: prev"><span class="glyphicon glyphicon-backward"></span></button>
+                        <button type="button" id="pauseRecording" data-bind="click: pause" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-pause"></span></button>
+                        <button type="button" class="btn btn-default btn-sm" data-bind="click: next"><span class="glyphicon glyphicon-forward"></span></button>
                     </div>
                     <div style="padding-left: 10px; padding-top: 7px;" class="clearfix">
                         <div class="progress">
