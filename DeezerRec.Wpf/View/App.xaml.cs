@@ -16,7 +16,7 @@ namespace DeezerRec.View
 
         public App()
         {
-            _nancyHost = new NancyHost(new Uri(ConfigurationManager.AppSettings["ROOT_URL"]));
+            _nancyHost = new NancyHost (new Uri(ConfigurationManager.AppSettings["ROOT_URL"]));
             _nancyHost.Start();
         }
 
