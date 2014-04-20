@@ -1,0 +1,8 @@
+﻿<Window x:Class="DeezerRec.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DeezerRec" Height="500" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="/DeezerRec;component/Web/Img/rec.ico">
+    <Grid>
+        <WebBrowser Grid.Row="0" Name="WebBrowser" x:FieldModifier="private"></WebBrowser>
+    </Grid>
+</Window>

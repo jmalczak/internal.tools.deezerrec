@@ -1,0 +1,134 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Deezer Rec</title>
+
+    <link href='@Url.Content("~/Web/Bootstrap/css/bootstrap.min.css")' rel="stylesheet">
+    <link href='@Url.Content("~/Web/Bootstrap/css/bootstrap-theme.min.css")' rel="stylesheet">
+    <link href='@Url.Content("~/Web/Styles/deezer.css")' rel="stylesheet">
+    <link href='@Url.Content("~/web/scripts/bower/kendo-ui-core/styles/web/kendo.common-bootstrap.core.min.css")' rel="stylesheet">
+    <link href='@Url.Content("~/web/scripts/bower/kendo-ui-core/styles/web/kendo.common.core.min.css")' rel="stylesheet">
+    <link href='@Url.Content("~/web/scripts/bower/kendo-ui-core/styles/web/kendo.default.min.css")' rel="stylesheet">
+    <link href='@Url.Content("~/web/scripts/bower/kendo-ui-core/styles/web/kendo.bootstrap.min.css")' rel="stylesheet">
+
+</head>
+<body data-service-url='@Html.RenderContext.Context.Request.Url'>
+    <div id="dz-root"></div>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <div class="pull-left" style="margin-top: 10px;margin-right: 10px;">
+                    <button type="button" class="btn btn-sm btn-default" data-bind="enabled: initialized() != undefined, visible: authenticated() == undefined" id="logIn"><span class="glyphicon glyphicon-user"></span> Log In</button>
+                </div>
+                <a class="navbar-brand" href="https://github.com/jmalczak" target="_blank">DeezerRec</a>
+            </div>
+            <div class="navbar-collapse collapse" id="loggedInSpan" data-bind="visible: user() != null" style="display: none;">
+                <ul class="nav navbar-nav navbar-right" data-bind="visible: user() != null">
+                    <li class="active"><a href="#" target="_blank" data-bind="attr: { href: userUrl }, text: user"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search key" id="searchKey" data-provide="typeahead">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="addAlbum">Add</button>
+                        </span>
+                    </div>
+                    <div>
+                        <ul class="list-group" style="margin-top: 10px;" data-bind="foreach: tracksToRecord" id="tracks">
+                            <li class="list-group-item" data-bind="attr: { 'data-track-id' : track.id }">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <span data-bind="text: album.title"></span> - <span data-bind="text: track.title"></span>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <button type="button" class="btn btn-danger btn-xs" data-bind="click: $root.removeTrack"><span class=" glyphicon glyphicon-remove"></span></button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div data-bind="with: currentTrack, visible: currentTrack() != null" style="display: none;">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Track details</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <a data-bind="attr: { href: album.link }" class="thumbnail">
+                                            <img data-bind="attr: { src: album.cover }" alt="Album Cover">
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <dl>
+                                            <dt>Artist</dt>
+                                            <dd data-bind="text: album.artist.name"></dd>
+                                            <dt>Album</dt>
+                                            <dd data-bind="text: album.title"></dd>
+                                            <dt>Title</dt>
+                                            <dd data-bind="text: track.title"></dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="console"></div>
+        </div>
+    </div>
+
+    <div id="footer" class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container" style="padding-top: 15px;">
+            <div class="row" data-bind="visible: authenticated() == true">
+                <div class="col-xs-12">
+                    <div class="pull-left" style="width: 300px;">
+                        <button type="button" class="btn btn-success" id="startRecording">
+                            <span class="glyphicon glyphicon-play"></span>
+                            Play and Rec
+                        </button>
+                        <button type="button" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-play"></span></button>
+                        <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-backward"></span></button>
+                        <button type="button" id="endRecording" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-stop"></span></button>
+                        <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-forward"></span></button>
+                    </div>
+                    <div style="padding-left: 10px; padding-top: 7px;" class="clearfix">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-bind="text: currentTrackProgress, style: {width: currentTrackProgress}">                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src='@Url.Content("~/Web/scripts/bower/kendo-ui-core/js/jquery.min.js")'></script>
+    <script src='@Url.Content("~/web/scripts/bower/kendo-ui-core/js/kendo.core.min.js")'></script>
+    <script src='@Url.Content("~/web/scripts/bower/kendo-ui-core//js/kendo.data.min.js")'></script>
+    <script src='@Url.Content("~/web/scripts/bower/kendo-ui-core/js/kendo.popup.min.js")'></script>
+    <script src='@Url.Content("~/web/scripts/bower/kendo-ui-core/js/kendo.list.min.js")'></script>
+    <script src='@Url.Content("~/web/scripts/bower/kendo-ui-core/js/kendo.autocomplete.min.js")'></script>
+    <script src="http://cdns-files.deezer.com/js/min/dz.js"></script>
+    <script src='@Url.Content("~/Web/Bootstrap/js/bootstrap.min.js")'></script>
+    <script src='@Url.Content("~/Web/Scripts/Bower/knockoutjs/build/output/knockout-latest.js")'></script>
+    <script src='@Url.Content("~/web/scripts/bower/blockui/jquery.blockui.js")'></script>
+    <script src='@Url.Content("~/Web/Scripts/DeezerRec.js")'></script>
+    <script src='@Url.Content("~/Web/Scripts/Common.js")'></script>
+    <script src='@Url.Content("~/Web/Scripts/Player.js")'></script>
+
+</body>
+</html>

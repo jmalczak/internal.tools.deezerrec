@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Configuration;
+using System.Runtime.InteropServices;
 
 namespace DeezerRec.View
 {
@@ -15,7 +16,7 @@ namespace DeezerRec.View
 
         public void Navigate()
         {
-            WebBrowser.Navigate("http://localhost:8080/");
+            WebBrowser.Navigate(ConfigurationManager.AppSettings["ROOT_URL"]);
         }
     }
 }

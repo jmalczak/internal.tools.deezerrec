@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace DeezerRec.WebDebug
+namespace DeezerRec.Web
 {
     public class Global : System.Web.HttpApplication
     {

@@ -42,14 +42,16 @@
     <Copy DestinationFolder="$(OutputPath)" SourceFiles="@(RootContent)" SkipUnchangedFiles="true" />
   </Target>
   <ItemGroup>
-    <Reference Include="Nancy">
-      <HintPath>..\packages\Nancy.0.22.2\lib\net40\Nancy.dll</HintPath>
+    <Reference Include="Nancy, Version=0.22.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Nancy.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.Hosting.Self">
-      <HintPath>..\packages\Nancy.Hosting.Self.0.22.2\lib\net40\Nancy.Hosting.Self.dll</HintPath>
+    <Reference Include="Nancy.Hosting.Self, Version=0.22.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Nancy.Hosting.Self.dll</HintPath>
     </Reference>
     <Reference Include="Nancy.ViewEngines.Razor">
-      <HintPath>..\packages\Nancy.Viewengines.Razor.0.22.2\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
+      <HintPath>..\Lib\Nancy.ViewEngines.Razor.dll</HintPath>
     </Reference>
     <Reference Include="NAudio, Version=1.7.0.15, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -63,7 +65,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web.Razor.Unofficial">
-      <HintPath>..\packages\System.Web.Razor.Unofficial.2.0.2\lib\net40\System.Web.Razor.Unofficial.dll</HintPath>
+      <HintPath>..\Lib\System.Web.Razor.Unofficial.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -418,7 +420,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web\Bootstrap\css\bootstrap-theme.css" />
@@ -428,12 +432,7 @@
     <Content Include="Web\Bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Web\Bootstrap\js\bootstrap.js" />
     <Content Include="Web\Bootstrap\js\bootstrap.min.js" />
-    <Resource Include="Web\Img\rec.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Content Include="Web\Img\rec.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Web\Img\rec.ico" />
     <Content Include="Web\Scripts\Bower\blockui\jquery.blockUI.js" />
     <Content Include="Web\Scripts\Bower\jquery\.gitattributes" />
     <Content Include="Web\Scripts\Bower\jquery\.gitignore" />
@@ -1867,11 +1866,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy/b/y "$(ProjectDir)Lib\*.dll" "$(TargetDir)"
-if $(ConfigurationName) == Debug (
-xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.22.2\BuildProviders\Nancy.ViewEngines.Razor.BuildProviders.dll" "$(ProjectDir)bin\"
-xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.22.2\lib\Net40\Nancy.ViewEngines.Razor.dll" "$(ProjectDir)bin\"
-)</PostBuildEvent>
+    <PostBuildEvent>copy/b/y "$(ProjectDir)..\Lib\*.dll" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

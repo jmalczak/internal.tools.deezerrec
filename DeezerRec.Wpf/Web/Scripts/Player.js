@@ -19,9 +19,67 @@
     self.currentAlbum = ko.observable(undefined);
     self.currentTrack = ko.observable(undefined);
 
+    self.currentTrackProgress = ko.observable('0%');
+
     var currentSongStarted = false;
 
     self.init = function () {
+
+        $('#addAlbum').click(function () {
+            window.Player.setCurrentAlbum();
+        });
+
+        $('#logIn').click(function () {
+            window.Player.logIn();
+        });
+
+        $("#startRecording").click(function () {
+            window.Player.processAlbum();
+        });
+
+        $("#endRecording").click(function () {
+            window.Player.stopRecording();
+        });
+
+        $("#searchKey").kendoAutoComplete({
+            dataTextField: "fullName",
+            select: function (e) {
+                window.Player.currentAlbum = this.dataItem(e.item.index()).item;
+            },
+            dataSource: {
+                schema: {
+                    data: function (response) {
+                        var convertedData = [];
+
+                        $.each(response.data, function (i, item) {
+                            convertedData.push({ fullName: item.artist.name + ' - ' + item.title, item: item });
+                        });
+
+                        return convertedData;
+                    }
+                },
+                serverFiltering: true,
+                transport: {
+                    read: {
+                        type: "GET",
+                        url: "http://api.deezer.com/search/album?output=jsonp&callback=?&limit=15",
+                        dataType: "jsonp"
+                    },
+                    parameterMap: function (data) {
+                        return { q: data.filter.filters[0].value };
+                    }
+                }
+            }
+        });
+
+        $.blockUI({
+            message: null,
+            overlayCSS: {
+                backgroundColor: '#000',
+                opacity: 0.6,
+                cursor: 'default'
+            }
+        });
 
         window.DZ.init({
             appId: self.appId,
@@ -61,14 +119,12 @@
         var position = (e[0] / e[1]) * 100;
 
         if (!isNaN(position)) {
-            console.log(position.toFixed(0) + '%');
+            self.currentTrackProgress(position.toFixed(0) + '%');
         }
 
         if (e[0] > 0 && e[1] > 0) {
             currentSongStarted = true;
         }
-
-        console.log(e);
 
         if (e[0] == 0 && e[1] > 0 && currentSongStarted == true) {
 
@@ -93,7 +149,7 @@
             type: "POST",
             url: self.rootUrl + '/End',
             success: function () {
-                alert('Stopped');
+                window.DZ.player.pause();
             }
         });
     };
@@ -102,16 +158,17 @@
         if (self.tracksToRecord().length > self.trackNumber()) {
 
             var trackObject = self.tracksToRecord()[self.trackNumber()];
-            self.currentTrack(trackObject.track);
 
+            self.currentTrack(trackObject);
+            
             $.ajax({
                 type: "POST",
                 url: self.rootUrl + '/Start',
-                data: { Album: trackObject.album.title, Title: self.currentTrack().title, Artist: trackObject.album.artist.name },
+                data: { Album: trackObject.album.title, Title: self.currentTrack().track.title, Artist: trackObject.album.artist.name },
                 success: function () {
 
                     self.trackNumber(self.trackNumber() + 1);
-                    window.DZ.player.playTracks([self.currentTrack().id]);
+                    window.DZ.player.playTracks([self.currentTrack().track.id]);
                 }
             });
         }
@@ -133,6 +190,10 @@
             }
         });
     };
+
+    self.removeTrack = function (trackObject) {
+        self.tracksToRecord.remove(trackObject);
+    };
 };
 
 $(document).ready(function () {
@@ -141,60 +202,4 @@ $(document).ready(function () {
     ko.applyBindings(window.Player);
 
     window.Player.init();
-
-    $('#addAlbum').click(function () {
-        window.Player.setCurrentAlbum();
-    });
-
-    $('#logIn').click(function () {
-        window.Player.logIn();
-    });
-
-    $("#startRecording").click(function () {
-        window.Player.processAlbum();
-    });
-
-    $("#endRecording").click(function () {
-        window.Player.stopRecording();
-    });
-
-    $("#searchKey").kendoAutoComplete({
-        dataTextField: "fullName",
-        select: function (e) {
-            window.Player.currentAlbum = this.dataItem(e.item.index()).item;
-        },
-        dataSource: {
-            schema: {
-                data: function (response) {
-                    var convertedData = [];
-
-                    $.each(response.data, function (i, item) {
-                        convertedData.push({ fullName: item.artist.name + ' - ' + item.title, item: item });
-                    });
-
-                    return convertedData;
-                }
-            },
-            serverFiltering: true,
-            transport: {
-                read: {
-                    type: "GET",
-                    url: "http://api.deezer.com/search/album?output=jsonp&callback=?&limit=15",
-                    dataType: "jsonp"
-                },
-                parameterMap: function (data) {
-                    return { q: data.filter.filters[0].value };
-                }
-            }
-        }
-    });
-
-    $.blockUI({
-        message: null,
-        overlayCSS: {
-            backgroundColor: '#000',
-            opacity: 0.6,
-            cursor: 'default'
-        }
-    });
 });
