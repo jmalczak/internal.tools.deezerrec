@@ -188,6 +188,10 @@
     };
 
     self.stopInternal = function (callback) {
+
+        window.DZ.player.pause();
+        console.log('test');
+
         if (self.recordingInProgress()) {
             $.ajax({
                 type: "POST",
@@ -197,7 +201,6 @@
                     self.recordingInProgress(false);
                     if (callback != undefined) callback();
                 },
-                async: false
             });
         }
     };
