@@ -3,7 +3,8 @@ DeezerRec
 
 Description
 ---------
-Tool to record deezer albums to mp3 using NAudio library and Deezer JavaScript API.
+Tool to record deezer albums to mp3 using NAudio library and Deezer JavaScript API. It records everything what goes to the output
+of your sound card, so if you play anything else during recording, your output files will contain additional audio.
 
 Requirements
 ---------
