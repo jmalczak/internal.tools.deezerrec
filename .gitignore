@@ -4,6 +4,7 @@ Thumbs.db
 *.obj
 *.exe
 !NuGet.exe
+!Setup/setup.exe
 *.pdb
 *.user
 *.aps
