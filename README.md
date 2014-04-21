@@ -15,7 +15,7 @@ Requirements
 
 Setup
 ----------
-Setup file is included in Setup folder. Application will be installed using Install Shield in program files directory. ![DeezerRec](/Setup/setup.exe)
+[Setup](/Setup/setup.exe) file is included in Setup folder. Application will be installed using Install Shield in program files directory.
 
 
 Configuration
