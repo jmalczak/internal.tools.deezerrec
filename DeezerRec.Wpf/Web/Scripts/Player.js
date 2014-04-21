@@ -25,7 +25,7 @@
     self.recordingInProgress = ko.observable(false);
     self.playingInProgress = ko.observable(false);
 
-    self.currentSongStarted = false;
+    self.songStarted = false;
 
     self.init = function () {
 
@@ -110,8 +110,17 @@
             self.currentTrackProgress(position.toFixed(0) + '%');
         }
 
-        if (e[0] == 0 && e[1] > 0 && self.playingInProgress == true) {
+        if (e[0] > 0 && e[1] > 0) {
+            self.songStarted = true;
+        }
+
+        console.log(e);
+        console.log(self.songStarted);
+        console.log(self.playingInProgress());
+
+        if (e[0] == 0 && e[1] > 0 && self.songStarted == true && self.playingInProgress() == true) {
             self.playNext();
+            self.songStarted = false;
         }
     };
 
@@ -124,11 +133,13 @@
             self.trackNumber(self.trackNumber() + 1);
 
             if (self.recoringSession()) {
-                self.stopInternal(function() {
+                self.stopInternal(function () {
+                    self.songStarted = false;
                     self.playAndRecord();
                 });
             } else {
-                self.stopInternal(function() {
+                self.stopInternal(function () {
+                    self.songStarted = false;
                     self.play();
                 });
             }
@@ -153,6 +164,8 @@
     };
 
     self.stop = function () {
+        self.songStarted = false;
+
         if (self.recoringSession()) {
             self.stopInternal();
         }
