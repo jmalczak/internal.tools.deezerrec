@@ -19,6 +19,7 @@
   "dependencies": {
     "knockoutjs": "~3.1.0",
     "blockui": "*",
-    "kendo-ui-core": "~2014.1.416"
+    "kendo-ui-core": "~2014.1.416",
+    "bootstrap": "~3.1.1"
   }
 }

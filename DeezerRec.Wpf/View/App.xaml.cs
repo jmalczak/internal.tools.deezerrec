@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Configuration;
 using System.Windows;
-using DeezerRec.Lib.Code;
-using DeezerRec.Lib.Code.WebBrowser;
+
 using Nancy.Hosting.Self;
 
 namespace DeezerRec.View
 {
+    using DeezerRec.Lib;
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
