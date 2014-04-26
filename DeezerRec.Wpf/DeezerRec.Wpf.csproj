@@ -167,9 +167,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Web\Styles\fonts\glyphicons-halflings-regular.eot" />
-    <Resource Include="Web\Styles\fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="Web\Styles\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Web\Styles\Fonts\glyphicons-halflings-regular.eot" />
+    <Resource Include="Web\Styles\Fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="Web\Styles\Fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -179,7 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Web\Img\rec.ico" />
-    <Content Include="Web\Scripts\Common.js" />
+    <Content Include="Web\Scripts\Console.js" />
     <Content Include="Web\Scripts\DeezerRec.js" />
     <Content Include="Web\Scripts\External\bootstrap.min.js" />
     <Content Include="Web\Scripts\External\jquery.blockUI.js" />
@@ -190,6 +190,7 @@
     <Content Include="Web\Scripts\External\kendo.list.min.js" />
     <Content Include="Web\Scripts\External\kendo.popup.min.js" />
     <Content Include="Web\Scripts\External\knockout-latest.js" />
+    <Content Include="Web\Scripts\Init.js" />
     <Content Include="Web\Scripts\Player.js" />
     <Content Include="Web\Styles\deezer.css" />
     <Content Include="Web\Styles\External\bootstrap-theme.min.css" />
@@ -199,7 +200,7 @@
     <Content Include="Web\Styles\External\kendo.common-bootstrap.core.min.css" />
     <Content Include="Web\Styles\External\kendo.common.core.min.css" />
     <Content Include="Web\Styles\External\kendo.default.min.css" />
-    <Content Include="Web\Styles\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Web\Styles\Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Web\Views\Include.html" />
     <Content Include="Web\Views\Player.cshtml" />
   </ItemGroup>

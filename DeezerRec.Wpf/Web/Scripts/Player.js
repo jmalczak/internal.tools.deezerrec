@@ -5,7 +5,6 @@
     self.rootUrl = rootUrl;
 
     self.channelUrl = rootUrl + '/Web/Views/Include.html';
-    self.Common = new DeezerRec.Common();
 
     self.user = ko.observable(undefined);
     self.userUrl = ko.observable(undefined);

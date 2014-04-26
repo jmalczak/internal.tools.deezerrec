@@ -1,8 +1,10 @@
-﻿DeezerRec.Common = function () {
+﻿DeezerRec.Console = function () {
     var self = this;
 
+    self.consoleDivId = 'console';
+
     self.log = function(message) {
-        self.setContent('console', document.getElementById('console').innerHTML + ' ' + message);
+        self.setContent(consoleDivId, document.getElementById(consoleDivId).innerHTML + ' ' + message);
     };
 
     self.setContent = function(placeHolder, text) {
