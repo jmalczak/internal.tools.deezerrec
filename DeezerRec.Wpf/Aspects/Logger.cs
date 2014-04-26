@@ -1,9 +1,11 @@
-﻿using System;
-using NLog;
-using PostSharp.Aspects;
-
-namespace DeezerRec.Aspects
+﻿namespace DeezerRec.Aspects
 {
+    using System;
+
+    using NLog;
+
+    using PostSharp.Aspects;
+
     [Serializable]
     public sealed class Logger : OnMethodBoundaryAspect
     {

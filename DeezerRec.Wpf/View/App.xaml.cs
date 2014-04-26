@@ -1,27 +1,29 @@
-﻿using System;
-using System.Configuration;
-using System.Windows;
-using DeezerRec.Lib;
-using Nancy.Hosting.Self;
-
-namespace DeezerRec.View
+﻿namespace DeezerRec.View
 {
+    using System;
+    using System.Configuration;
+    using System.Windows;
+
+    using DeezerRec.Lib;
+
+    using Nancy.Hosting.Self;
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App
     {
-        private readonly NancyHost _nancyHost;
+        private readonly NancyHost nancyHost;
 
         public App()
         {
-            _nancyHost = new NancyHost (new Uri(ConfigurationManager.AppSettings["ROOT_URL"]));
-            _nancyHost.Start();
+            this.nancyHost = new NancyHost(new Uri(ConfigurationManager.AppSettings["ROOT_URL"]));
+            this.nancyHost.Start();
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            _nancyHost.Dispose();
+            this.nancyHost.Dispose();
             Recorder.Stop();
 
             base.OnExit(e);

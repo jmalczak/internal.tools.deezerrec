@@ -1,8 +1,8 @@
-﻿using System.Configuration;
-using System.Runtime.InteropServices;
-
-namespace DeezerRec.View
+﻿namespace DeezerRec.View
 {
+    using System.Configuration;
+    using System.Runtime.InteropServices;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
