@@ -1,5 +1,8 @@
 ﻿namespace DeezerRec.Lib.Dto
 {
+    using DeezerRec.Lib.Annotations;
+
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public class TrackDto
     {
         public string Album { get; set; }

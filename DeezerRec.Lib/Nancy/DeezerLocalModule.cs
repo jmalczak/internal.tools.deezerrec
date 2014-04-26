@@ -1,14 +1,18 @@
-﻿using DeezerRec.Lib.Dto;
-using Nancy;
-using Nancy.ModelBinding;
-
-namespace DeezerRec.Lib.Nancy
+﻿namespace DeezerRec.Lib.Nancy
 {
+    using DeezerRec.Lib.Annotations;
+    using DeezerRec.Lib.Dto;
+
+    using global::Nancy;
+
+    using global::Nancy.ModelBinding;
+
+    [UsedImplicitly]
     public class DeezerLocalModule : NancyModule
     {
         public DeezerLocalModule()
         {
-            Post["/Start"] = _ =>
+            this.Post["/Start"] = _ =>
             {
                 var trackDto = this.Bind<TrackDto>();
 
@@ -16,13 +20,13 @@ namespace DeezerRec.Lib.Nancy
                 return string.Empty;
             };
 
-            Post["/End"] = _ =>
+            this.Post["/End"] = _ =>
             {
                 Recorder.Stop();
                 return (object)string.Empty;
             };
 
-            Get["/"] = _ => View["Web/Views/Player.cshtml"];
+            this.Get["/"] = _ => this.View["Web/Views/Player.cshtml"];
         }
     }
 }

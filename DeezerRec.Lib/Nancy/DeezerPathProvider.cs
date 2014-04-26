@@ -1,11 +1,12 @@
-﻿using System;
-using System.Configuration;
-using System.Reflection;
-using System.Web.Hosting;
-using Nancy;
-
-namespace DeezerRec.Lib.Nancy
+﻿namespace DeezerRec.Lib.Nancy
 {
+    using System;
+    using System.Configuration;
+    using System.Reflection;
+    using System.Web.Hosting;
+
+    using global::Nancy;
+
     public class DeezerPathProvider : IRootPathProvider
     {
         public string GetRootPath()
@@ -25,6 +26,7 @@ namespace DeezerRec.Lib.Nancy
 
                     return null;
                 }
+
                 default: throw new Exception("Invlide HOST_TYPE");
             }
         }

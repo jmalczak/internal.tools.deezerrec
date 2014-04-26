@@ -11,6 +11,11 @@ Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "DeezerRec.Setup", "DeezerRe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeezerRec.Lib", "DeezerRec.Lib\DeezerRec.Lib.csproj", "{38D9D748-10F8-4ABA-BF24-F458C57D5C04}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StyleCop", "StyleCop", "{E8F60550-CE2B-44D1-B7AD-0D1318CD55FF}"
+	ProjectSection(SolutionItems) = preProject
+		Settings.StyleCop = Settings.StyleCop
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
