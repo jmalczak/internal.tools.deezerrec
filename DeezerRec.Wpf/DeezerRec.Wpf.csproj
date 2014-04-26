@@ -167,6 +167,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Web\Styles\fonts\glyphicons-halflings-regular.eot" />
+    <Resource Include="Web\Styles\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="Web\Styles\fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -196,6 +199,7 @@
     <Content Include="Web\Styles\External\kendo.common-bootstrap.core.min.css" />
     <Content Include="Web\Styles\External\kendo.common.core.min.css" />
     <Content Include="Web\Styles\External\kendo.default.min.css" />
+    <Content Include="Web\Styles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Web\Views\Include.html" />
     <Content Include="Web\Views\Player.cshtml" />
   </ItemGroup>
