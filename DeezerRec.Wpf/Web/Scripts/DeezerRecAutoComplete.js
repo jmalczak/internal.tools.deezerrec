@@ -1,14 +1,15 @@
-﻿DeezerRec.AutoComplete = function (deezerWrapper, selectCallback) {
+﻿DeezerRec.AutoComplete = function (deezerWrapper) {
     var self = this;
 
     self.deezerWrapper = deezerWrapper;
-    self.selectCallback = selectCallback;
+
+    self.selectEvent = function() {};
 
     self.init = function () {
         $("#searchKey").kendoAutoComplete({
             dataTextField: "fullName",
             select: function (e) {
-                selectCallback(this.dataItem(e.item.index()).item);
+                self.selectEvent(this.dataItem(e.item.index()).item);
             },
             dataSource: {
                 schema: {

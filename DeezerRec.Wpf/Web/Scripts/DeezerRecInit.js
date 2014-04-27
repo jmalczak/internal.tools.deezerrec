@@ -10,12 +10,13 @@
     }
 
     if (window.DeezerRecPlayer == undefined) {
-        window.DeezerRecPlayer = new DeezerRec.Player($('body').data("service-url"), window.DeezerRecWrapper);
+        window.DeezerAutoComplete = new DeezerRec.AutoComplete(window.DeezerRecWrapper);
+        window.DeezerRecPlayer = new DeezerRec.Player($('body').data("service-url"), window.DeezerRecWrapper, window.DeezerAutoComplete , new DeezerRec.Recorder($('body').data("service-url")));
     }
 
     ko.applyBindings(window.DeezerRecPlayer);
-
-    window.DeezerRecWrapper.init();
-    window.DeezerRecPlayer.init();
+    window.DeezerAutoComplete.init();
+    
+    $.blockUI({ message: null, overlayCSS: { backgroundColor: '#000', opacity: 0.6, cursor: 'default' } });
 });
 

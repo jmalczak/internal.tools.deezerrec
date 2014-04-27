@@ -11,7 +11,6 @@
             success: function () {
                 callback();
             },
-            async: false
         });
     };
 

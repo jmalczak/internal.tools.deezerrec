@@ -1,187 +1,182 @@
-﻿DeezerRec.Player = function (rootUrl, deezerWrapper) {
+﻿DeezerRec.Player = function (rootUrl, deezerWrapper, deezerAutoComplete, deezerRecorder) {
     var self = this;
 
     self.rootUrl = rootUrl;
     self.deezerWrapper = deezerWrapper;
+    self.deezerAutoComplete = deezerAutoComplete;
+    self.deezerRecorder = deezerRecorder;
 
-    self.autoComplete = new DeezerRec.AutoComplete(deezerWrapper, function (selectedItem) {
+    self.deezerAutoComplete.selectEvent = function (selectedItem) {
         self.viewModel.currentAlbum(selectedItem);
+    };
+
+    self.deezerWrapper.init(function () {
+        self.deezerWrapper.setEvent('player_position', self.playerPositionEvent);
     });
 
-    self.recorder = new DeezerRec.Recorder(self.rootUrl);
-
     self.viewModel = {
-        user: ko.observable(undefined),
-        userUrl: ko.observable(undefined),
-        initialized: ko.observable(undefined),
-        authenticated: ko.observable(undefined),
+        loggedInUser: ko.observable(undefined),
         currentAlbum: ko.observable(undefined),
         currentTrack: ko.observable(undefined),
         currentTrackProgress: ko.observable('0%'),
         tracksToRecord: ko.observableArray([]),
-        trackNumber: ko.observable(0),
         recoringSession: ko.observable(false),
         recordingInProgress: ko.observable(false),
         playingInProgress: ko.observable(false),
-        songStarted: false
+        songStarted: ko.observable(false)
     }
-
-    self.init = function () {
-        self.autoComplete.init();
-        $.blockUI({ message: null, overlayCSS: { backgroundColor: '#000', opacity: 0.6, cursor: 'default' } });
-        self.deezerWrapper.setEvent('player_position', self.playerPositionEvent);
-    };
 
     self.logIn = function () {
         self.deezerWrapper.logIn(function () {
             self.deezerWrapper.getUserData(function (response) {
-                self.viewModel.user(response.name);
-                self.viewModel.userUrl(response.link);
 
                 if (response.name != undefined) {
-                    self.viewModel.authenticated(true);
+                    self.viewModel.loggedInUser(response);
                     $.unblockUI();
-                    $('#startPlaying').removeAttr("disabled");
-                    $('#endRecording').removeAttr("disabled");
+                } else {
+                    self.viewModel.loggedInUser(undefined);
                 }
             });
         });
     };
 
-    self.playerPositionEvent = function (e) {
-        var position = (e[0] / e[1]) * 100;
+    self.play = function () {
+        if (self.viewModel.tracksToRecord().length == 0) return;
+        if (self.viewModel.currentTrack() == undefined) self.viewModel.currentTrack(self.viewModel.tracksToRecord()[0]);
 
-        if (!isNaN(position)) {
-            self.viewModel.currentTrackProgress(position.toFixed(0) + '%');
-        }
+        var startPlaying = function () {
 
-        if (e[0] > 0 && e[1] > 0) {
-            self.viewModel.songStarted = true;
-        }
-
-        if (e[0] == 0 && e[1] > 0 && self.viewModel.songStarted == true && self.viewModel.playingInProgress() == true) {
-            self.playNext();
-            self.viewModel.songStarted = false;
-        }
-    };
-
-    self.playNext = function () {
-        self.viewModel.playingInProgress(false);
-
-        if (self.viewModel.tracksToRecord().length > self.viewModel.trackNumber() + 1) {
-            self.viewModel.currentTrack(self.viewModel.tracksToRecord()[self.viewModel.trackNumber() + 1]);
-            self.viewModel.trackNumber(self.viewModel.trackNumber() + 1);
-
-            if (self.viewModel.recoringSession()) {
-                self.stopInternal(function () {
-                    self.viewModel.songStarted = false;
-                    self.playAndRecord();
-                });
+            if (!self.viewModel.playingInProgress()) {
+                self.deezerWrapper.playTracks([self.viewModel.currentTrack().track.id]);
             } else {
-                self.stopInternal(function () {
-                    self.viewModel.songStarted = false;
-                    self.play();
-                });
+                self.deezerWrapper.play();
             }
 
-        } else {
-            self.stop();
-        }
-    };
+            self.viewModel.playingInProgress(true);
+        };
 
-    self.play = function () {
-        self.viewModel.startPlaying(false);
+        if (self.viewModel.recoringSession()) {
+            self.deezerRecorder.start(self.viewModel.currentTrack(), function () {
+                self.viewModel.recordingInProgress(true);
+                startPlaying();
+            });
+        } else {
+            startPlaying();
+        }
     };
 
     self.playAndRecord = function () {
         self.viewModel.recoringSession(true);
-        self.viewModel.startPlaying(true);
+        self.play();
     };
 
     self.pause = function () {
-        self.stopInternal();
-        self.viewModel.recoringSession(false);
+        self.stopRecording();
     };
 
-    self.stop = function () {
-        self.viewModel.songStarted = false;
+    self.stop = function (callbackAfterStop) {
+        self.viewModel.songStarted(false);
+
+        var stopPlaying = function () {
+            self.deezerWrapper.pause();
+            self.viewModel.currentTrackProgress(0);
+            self.viewModel.currentTrack(undefined);
+            self.viewModel.playingInProgress(false);
+        };
 
         if (self.viewModel.recoringSession()) {
-            self.stopInternal();
+            self.stopRecording(function () {
+                stopPlaying();
+                if (callbackAfterStop != undefined && typeof (callbackAfterStop) == "function") callbackAfterStop();
+            });
+        } else {
+            stopPlaying();
+            if (callbackAfterStop != undefined && typeof (callbackAfterStop) == "function") callbackAfterStop();
+        }
+    };
+
+    self.stopRecording = function (callback) {
+        self.deezerWrapper.pause();
+
+        if (self.viewModel.recordingInProgress()) {
+            self.deezerRecorder.stop(function () {
+                self.viewModel.recordingInProgress(false);
+                self.viewModel.recoringSession(false);
+
+                if (callback != undefined) callback();
+            });
+        }
+    };
+
+    self.prev = function () {
+        var recordingSession = self.viewModel.recoringSession();
+        var playingInProgress = self.viewModel.playingInProgress();
+
+        var trackIndex = 0;
+
+        if (self.viewModel.currentTrack() != undefined) {
+            trackIndex = self.viewModel.tracksToRecord().indexOf(self.viewModel.currentTrack());
+
+            if (trackIndex > 0) trackIndex--;
         }
 
-        self.deezerWrapper.seek(99.9);
+        self.stop(function () {
+            self.viewModel.currentTrack(self.viewModel.tracksToRecord()[trackIndex]);
+            self.viewModel.songStarted(false);
 
-        self.viewModel.currentTrack(undefined);
-        self.viewModel.trackNumber(0);
-        self.viewModel.recoringSession(false);
-        self.viewModel.playingInProgress(false);
+            if (playingInProgress) {
+                if (recordingSession) {
+                    self.playAndRecord();
+                } else {
+                    self.play();
+                }
+            }
+        });
     };
 
     self.next = function () {
         self.playNext();
     };
 
-    self.prev = function () {
-        self.stopInternal();
-        self.viewModel.playingInProgress(false);
+    self.playNext = function () {
+        var recordingSession = self.viewModel.recoringSession();
+        var playingInProgress = self.viewModel.playingInProgress();
+        
+        var trackIndex = 0;
 
-        var previousTrackNumber = self.viewModel.trackNumber() == 0 ? self.viewModel.trackNumber() : self.viewModel.trackNumber() - 1;
+        if (self.viewModel.currentTrack() != undefined) {
+            trackIndex = self.viewModel.tracksToRecord().indexOf(self.viewModel.currentTrack());
 
-        if (self.viewModel.tracksToRecord().length > previousTrackNumber) {
-            self.viewModel.trackNumber(previousTrackNumber);
-            self.viewModel.currentTrack(self.viewModel.tracksToRecord()[previousTrackNumber]);
+            if (trackIndex < self.viewModel.tracksToRecord().length - 1) trackIndex++;
         }
 
-        if (self.viewModel.recoringSession()) {
-            self.playAndRecord();
-        } else {
-            self.play();
-        }
+        self.stop(function () {
+            self.viewModel.currentTrack(self.viewModel.tracksToRecord()[trackIndex]);
+            self.viewModel.songStarted(false);
+
+            if (playingInProgress) {
+                if (recordingSession) {
+                    self.playAndRecord();
+                } else {
+                    self.play();
+                }
+            }
+        });
     };
 
-    self.stopInternal = function (callback) {
+    self.playerPositionEvent = function (e) {
+        var position = (e[0] / e[1]) * 100;
 
-        self.deezerWrapper.pause();
-        console.log('test');
-
-        if (self.viewModel.recordingInProgress()) {
-            self.recorder.stop(function () {
-                self.deezerWrapper.pause();
-                self.viewModel.recordingInProgress(false);
-                if (callback != undefined) callback();
-            });
-        }
-    };
-
-    self.startPlaying = function (recordTrack) {
-        if (self.viewModel.tracksToRecord().length == 0) {
-            return;
+        if (position == 0 && self.viewModel.playingInProgress()) {
+            self.viewModel.songStarted(true);
+        } else if (position == 0 && self.viewModel.playingInProgress() == false) {
+            self.viewModel.songStarted(false);
+            self.playNext();
         }
 
-        if (self.viewModel.currentTrack() == undefined) {
-            self.viewModel.trackNumber(0);
-            self.viewModel.currentTrack(self.viewModel.tracksToRecord()[0]);
+        if (!isNaN(position)) {
+            self.viewModel.currentTrackProgress(position.toFixed(0) + '%');
         }
-
-        if (recordTrack) {
-            self.recorder.start(self.viewModel.currentTrack(), function () {
-                self.playInternal();
-                self.viewModel.recordingInProgress(true);
-            });
-        } else {
-            self.playInternal();
-        }
-    },
-
-    self.playInternal = function () {
-        if (!self.viewModel.playingInProgress()) {
-            self.deezerWrapper.playTracks([self.viewModel.currentTrack().track.id]);
-        } else {
-            self.deezerWrapper.play();
-        }
-
-        self.viewModel.playingInProgress(true);
     };
 
     self.addCurrentAlbum = function () {

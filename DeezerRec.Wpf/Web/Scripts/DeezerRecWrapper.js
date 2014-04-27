@@ -6,13 +6,14 @@
 
     self.initialized = false;
 
-    self.init = function () {
+    self.init = function (callback) {
         window.DZ.init({
             appId: self.appId,
             channelUrl: self.channelUrl,
             player: {
                 onload: function () {
                     self.initialized = true;
+                    callback();
                 }
             }
         });
