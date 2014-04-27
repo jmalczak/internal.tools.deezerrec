@@ -21,13 +21,13 @@
         <div class="container">
             <div class="navbar-header">
                 <div class="pull-left" style="margin-top: 10px;margin-right: 10px;">
-                    <button type="button" class="btn btn-sm btn-default" data-bind="enabled: initialized() != undefined, visible: authenticated() == undefined, click: logIn" id="logIn"><span class="glyphicon glyphicon-user"></span> Log In</button>
+                    <button type="button" class="btn btn-sm btn-default" data-bind="enabled: viewModel.initialized() != undefined, visible: viewModel.authenticated() == undefined, click: logIn" id="logIn"><span class="glyphicon glyphicon-user"></span> Log In</button>
                 </div>
                 <a class="navbar-brand" href="https://github.com/jmalczak" target="_blank">DeezerRec</a>
             </div>
-            <div class="navbar-collapse collapse" id="loggedInSpan" data-bind="visible: user() != null" style="display: none;">
-                <ul class="nav navbar-nav navbar-right" data-bind="visible: user() != null">
-                    <li class="active"><a href="#" target="_blank" data-bind="attr: { href: userUrl }, text: user"></a></li>
+            <div class="navbar-collapse collapse" id="loggedInSpan" data-bind="visible: viewModel.user() != null" style="display: none;">
+                <ul class="nav navbar-nav navbar-right" data-bind="visible: viewModel.user() != null">
+                    <li class="active"><a href="#" target="_blank" data-bind="attr: { href: viewModel.userUrl }, text: viewModel.user"></a></li>
                 </ul>
             </div>
         </div>
@@ -38,19 +38,19 @@
             <div class="row">
                 <div class="col-xs-6">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search key" id="searchKey" data-provide="typeahead">
+                        <input type="text" class="form-control" placeholder="Search key" id="searchKey">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" id="addAlbum" data-bind="click: addCurrentAlbum">Add</button>
                         </span>
                     </div>
                     <div>
-                        <ul class="list-group" style="margin-top: 10px;" data-bind="foreach: tracksToRecord" id="tracks">
+                        <ul class="list-group" style="margin-top: 10px;" data-bind="foreach: viewModel.tracksToRecord" id="tracks">
                             <li class="list-group-item" data-bind="attr: { 'data-track-id' : track.id }">
                                 <div class="row">
                                     <div class="col-xs-10">
                                         <span data-bind="text: album.title"></span> - <span data-bind="text: track.title"></span>
                                     </div>
-                                    <div class="col-xs-1 text-right">
+                                    <div class="col-xs-1 pull-right">
                                         <button type="button" class="btn btn-danger btn-xs" data-bind="click: $root.removeTrack"><span class=" glyphicon glyphicon-remove"></span></button>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="col-xs-6">
-                    <div data-bind="with: currentTrack, visible: currentTrack() != null" style="display: none;">
+                    <div data-bind="with: viewModel.currentTrack, visible: viewModel.currentTrack() != null" style="display: none;">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Track details</h3>
@@ -93,7 +93,7 @@
 
     <div id="footer" class="navbar navbar-default navbar-fixed-bottom">
         <div class="container" style="padding-top: 15px;">
-            <div class="row" data-bind="visible: authenticated() == true">
+            <div class="row" data-bind="visible: viewModel.authenticated() == true">
                 <div class="col-xs-12">
                     <div class="pull-left" style="width: 350px;">
                         <button type="button" class="btn btn-success" id="startRecording" data-bind="click: playAndRecord">
@@ -108,7 +108,7 @@
                     </div>
                     <div style="padding-left: 10px; padding-top: 7px;" class="clearfix">
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-bind="text: currentTrackProgress, style: {width: currentTrackProgress}">                                
+                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-bind="text: viewModel.currentTrackProgress, style: {width: viewModel.currentTrackProgress}">
                             </div>
                         </div>
                     </div>
@@ -128,9 +128,12 @@
     <script src='@Url.Content("~/web/scripts/External/jquery.blockui.js")'></script>
     <script src="http://cdns-files.deezer.com/js/min/dz.js"></script>
     <script src='@Url.Content("~/Web/Scripts/DeezerRec.js")'></script>
-    <script src='@Url.Content("~/Web/Scripts/Console.js")'></script>
-    <script src='@Url.Content("~/Web/Scripts/Player.js")'></script>
-    <script src='@Url.Content("~/Web/Scripts/Init.js")'></script>
+    <script src='@Url.Content("~/Web/Scripts/DeezerRecConsole.js")'></script>
+    <script src='@Url.Content("~/Web/Scripts/DeezerRecWrapper.js")'></script>
+    <script src='@Url.Content("~/Web/Scripts/DeezerRecRecorder.js")'></script>
+    <script src='@Url.Content("~/Web/Scripts/DeezerRecPlayer.js")'></script>
+    <script src='@Url.Content("~/Web/Scripts/DeezerRecAutoComplete.js")'></script>
+    <script src='@Url.Content("~/Web/Scripts/DeezerRecInit.js")'></script>
 
 </body>
 </html>

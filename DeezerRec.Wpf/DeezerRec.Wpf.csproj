@@ -179,8 +179,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Web\Img\rec.ico" />
-    <Content Include="Web\Scripts\Console.js" />
+    <Content Include="Web\Scripts\DeezerRecConsole.js" />
+    <Content Include="Web\Scripts\DeezerRecAutoComplete.js" />
     <Content Include="Web\Scripts\DeezerRec.js" />
+    <Content Include="Web\Scripts\DeezerRecWrapper.js" />
     <Content Include="Web\Scripts\External\bootstrap.min.js" />
     <Content Include="Web\Scripts\External\jquery.blockUI.js" />
     <Content Include="Web\Scripts\External\jquery.min.js" />
@@ -190,8 +192,8 @@
     <Content Include="Web\Scripts\External\kendo.list.min.js" />
     <Content Include="Web\Scripts\External\kendo.popup.min.js" />
     <Content Include="Web\Scripts\External\knockout-latest.js" />
-    <Content Include="Web\Scripts\Init.js" />
-    <Content Include="Web\Scripts\Player.js" />
+    <Content Include="Web\Scripts\DeezerRecInit.js" />
+    <Content Include="Web\Scripts\DeezerRecPlayer.js" />
     <Content Include="Web\Styles\deezer.css" />
     <Content Include="Web\Styles\External\bootstrap-theme.min.css" />
     <Content Include="Web\Styles\External\bootstrap.css" />
