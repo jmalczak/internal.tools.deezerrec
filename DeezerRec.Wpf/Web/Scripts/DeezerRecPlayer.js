@@ -23,8 +23,21 @@
         recoringSession: ko.observable(false),
         recordingInProgress: ko.observable(false),
         playingInProgress: ko.observable(false),
-        songStarted: ko.observable(false)
+        songStarted: ko.observable(false),
+        showConsole: ko.observable(false)
     }
+
+    self.viewModel.currentTrack.subscribe(function (newValue) {
+        if (newValue != undefined) $('[data-track-id="' + newValue.track.id + '"]').toggleClass("list-group-item-info");
+    });
+
+    self.viewModel.currentTrack.subscribe(function (oldValue) {
+        if (oldValue != undefined) $('[data-track-id="' + oldValue.track.id + '"]').toggleClass("list-group-item-info");
+    }, null, "beforeChange");
+
+    self.showConsole = function() {
+        self.viewModel.showConsole(!self.viewModel.showConsole());
+    };
 
     self.logIn = function () {
         self.deezerWrapper.logIn(function () {
@@ -47,16 +60,20 @@
         var startPlaying = function () {
 
             if (!self.viewModel.playingInProgress()) {
+                window.DeezerRecConsole.log('Play New Track');
                 self.deezerWrapper.playTracks([self.viewModel.currentTrack().track.id]);
             } else {
+                window.DeezerRecConsole.log('Play Existing Track');
                 self.deezerWrapper.play();
             }
 
+            self.viewModel.songStarted(false);
             self.viewModel.playingInProgress(true);
         };
 
         if (self.viewModel.recoringSession()) {
             self.deezerRecorder.start(self.viewModel.currentTrack(), function () {
+                window.DeezerRecConsole.log('Started Recording');
                 self.viewModel.recordingInProgress(true);
                 startPlaying();
             });
@@ -66,18 +83,22 @@
     };
 
     self.playAndRecord = function () {
+        window.DeezerRecConsole.log('Play And Record Clicked');
         self.viewModel.recoringSession(true);
         self.play();
     };
 
     self.pause = function () {
+        window.DeezerRecConsole.log('Pause Clicked');
         self.stopRecording();
     };
 
     self.stop = function (callbackAfterStop) {
+        window.DeezerRecConsole.log('Stop Clicked');
         self.viewModel.songStarted(false);
 
         var stopPlaying = function () {
+            window.DeezerRecConsole.log('Stopped Playing');
             self.deezerWrapper.pause();
             self.viewModel.currentTrackProgress(0);
             self.viewModel.currentTrack(undefined);
@@ -86,6 +107,7 @@
 
         if (self.viewModel.recoringSession()) {
             self.stopRecording(function () {
+                window.DeezerRecConsole.log('Stopped Recording');
                 stopPlaying();
                 if (callbackAfterStop != undefined && typeof (callbackAfterStop) == "function") callbackAfterStop();
             });
@@ -109,6 +131,7 @@
     };
 
     self.prev = function () {
+        window.DeezerRecConsole.log('Prev Item Clicked');
         var recordingSession = self.viewModel.recoringSession();
         var playingInProgress = self.viewModel.playingInProgress();
 
@@ -135,13 +158,14 @@
     };
 
     self.next = function () {
+        window.DeezerRecConsole.log('Next Item Clicked');
         self.playNext();
     };
 
     self.playNext = function () {
         var recordingSession = self.viewModel.recoringSession();
         var playingInProgress = self.viewModel.playingInProgress();
-        
+
         var trackIndex = 0;
 
         if (self.viewModel.currentTrack() != undefined) {
@@ -151,6 +175,7 @@
         }
 
         self.stop(function () {
+
             self.viewModel.currentTrack(self.viewModel.tracksToRecord()[trackIndex]);
             self.viewModel.songStarted(false);
 
@@ -167,9 +192,11 @@
     self.playerPositionEvent = function (e) {
         var position = (e[0] / e[1]) * 100;
 
-        if (position == 0 && self.viewModel.playingInProgress()) {
+        window.DeezerRecConsole.log('Postion: ' + position.toFixed(2) + ' Playing In Progress: ' + self.viewModel.playingInProgress() + ' Song Started: ' + self.viewModel.songStarted());
+
+        if (position == 0 && self.viewModel.playingInProgress() && self.viewModel.songStarted() == false) {
             self.viewModel.songStarted(true);
-        } else if (position == 0 && self.viewModel.playingInProgress() == false) {
+        } else if (position == 0 && self.viewModel.playingInProgress() && self.viewModel.songStarted()) {
             self.viewModel.songStarted(false);
             self.playNext();
         }

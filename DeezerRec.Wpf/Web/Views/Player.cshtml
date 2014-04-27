@@ -20,8 +20,11 @@
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
-                <div class="pull-left" style="margin-top: 10px;margin-right: 10px;">
-                    <button type="button" class="btn btn-sm btn-default" data-bind="visible: viewModel.loggedInUser() == undefined, click: logIn" id="logIn"><span class="glyphicon glyphicon-user"></span> Log In</button>
+                <div class="pull-left" style="margin-top: 10px;margin-right: 10px;" data-bind="visible: viewModel.loggedInUser() == undefined, click: logIn" id="logIn">
+                    <button type="button" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-user"></span> Log In</button>
+                </div>
+                <div class="pull-left" style="margin-top: 10px;margin-right: 10px;" data-bind="visible: viewModel.loggedInUser() != undefined">
+                    <button type="button" class="btn btn-sm btn-default" id="showConsole" data-toggle="modal" data-target="#consoleModal"><span class="glyphicon glyphicon-info-sign"></span> Console</button>
                 </div>
                 <a class="navbar-brand" href="https://github.com/jmalczak" target="_blank">DeezerRec</a>
             </div>
@@ -50,8 +53,8 @@
                                     <div class="col-xs-10">
                                         <span data-bind="text: album.title"></span> - <span data-bind="text: track.title"></span>
                                     </div>
-                                    <div class="col-xs-1">
-                                        <button type="button" class="btn btn-danger btn-xs" data-bind="click: $root.removeTrack, enabled: !$root.viewModel.playingInProgress"><span class=" glyphicon glyphicon-remove"></span></button>
+                                    <div class="col-xs-1 pull-right" data-bind="visible: $root.viewModel.playingInProgress() == false">
+                                        <button type="button" class="btn btn-danger btn-xs" data-bind="click: $root.removeTrack"><span class=" glyphicon glyphicon-remove"></span></button>
                                     </div>
                                 </div>
                             </li>
@@ -87,7 +90,20 @@
                     </div>
                 </div>
             </div>
-            <div id="console"></div>
+
+            <div class="modal fade" id="consoleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="consoleModalLabel">Console</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="console"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
