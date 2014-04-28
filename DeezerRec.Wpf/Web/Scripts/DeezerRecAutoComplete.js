@@ -5,6 +5,8 @@
 
     self.selectEvent = function() {};
 
+    window.DeezerRecConsole.log('init in autocomplete');
+
     self.init = function () {
         $("#searchKey").kendoAutoComplete({
             dataTextField: "fullName",

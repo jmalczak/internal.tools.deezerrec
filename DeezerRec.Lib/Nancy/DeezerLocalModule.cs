@@ -1,5 +1,7 @@
 ﻿namespace DeezerRec.Lib.Nancy
 {
+    using System.Configuration;
+
     using DeezerRec.Lib.Annotations;
     using DeezerRec.Lib.Dto;
 
@@ -26,7 +28,11 @@
                 return (object)string.Empty;
             };
 
-            this.Get["/"] = _ => this.View["Web/Views/Player.cshtml"];
+            this.Get["/"] = _ =>
+                {
+                    ViewBag["mode"] = ConfigurationManager.AppSettings["MODE"];
+                    return this.View["Web/Views/Player.cshtml"];
+                };
         }
     }
 }

@@ -59,6 +59,8 @@
 
         var startPlaying = function () {
 
+            self.viewModel.songStarted(false);
+
             if (!self.viewModel.playingInProgress()) {
                 window.DeezerRecConsole.log('Play New Track');
                 self.deezerWrapper.playTracks([self.viewModel.currentTrack().track.id]);
@@ -140,7 +142,11 @@
         if (self.viewModel.currentTrack() != undefined) {
             trackIndex = self.viewModel.tracksToRecord().indexOf(self.viewModel.currentTrack());
 
-            if (trackIndex > 0) trackIndex--;
+            if (trackIndex > 0) {
+                trackIndex--;
+            } else {
+                return;
+            }
         }
 
         self.stop(function () {
@@ -171,7 +177,11 @@
         if (self.viewModel.currentTrack() != undefined) {
             trackIndex = self.viewModel.tracksToRecord().indexOf(self.viewModel.currentTrack());
 
-            if (trackIndex < self.viewModel.tracksToRecord().length - 1) trackIndex++;
+            if (trackIndex < self.viewModel.tracksToRecord().length - 1) {
+                trackIndex++;
+            } else {
+                return;
+            }
         }
 
         self.stop(function () {
@@ -194,7 +204,7 @@
 
         window.DeezerRecConsole.log('Postion: ' + position.toFixed(2) + ' Playing In Progress: ' + self.viewModel.playingInProgress() + ' Song Started: ' + self.viewModel.songStarted());
 
-        if (position == 0 && self.viewModel.playingInProgress() && self.viewModel.songStarted() == false) {
+        if (position > 0 && self.viewModel.playingInProgress() && self.viewModel.songStarted() == false) {
             self.viewModel.songStarted(true);
         } else if (position == 0 && self.viewModel.playingInProgress() && self.viewModel.songStarted()) {
             self.viewModel.songStarted(false);
