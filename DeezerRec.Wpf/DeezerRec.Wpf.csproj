@@ -199,6 +199,16 @@
     <Content Include="Web\Styles\External\bootstrap-theme.min.css" />
     <Content Include="Web\Styles\External\bootstrap.css" />
     <Content Include="Web\Styles\External\bootstrap.min.css" />
+    <Resource Include="Web\Styles\External\Bootstrap\editor.png" />
+    <Resource Include="Web\Styles\External\Bootstrap\imagebrowser.png" />
+    <Resource Include="Web\Styles\External\Bootstrap\indeterminate.gif" />
+    <Resource Include="Web\Styles\External\Bootstrap\loading-image.gif" />
+    <Resource Include="Web\Styles\External\Bootstrap\loading.gif" />
+    <Resource Include="Web\Styles\External\Bootstrap\loading_2x.gif" />
+    <Resource Include="Web\Styles\External\Bootstrap\slider-h.gif" />
+    <Resource Include="Web\Styles\External\Bootstrap\slider-v.gif" />
+    <Resource Include="Web\Styles\External\Bootstrap\sprite.png" />
+    <Resource Include="Web\Styles\External\Bootstrap\sprite_2x.png" />
     <Content Include="Web\Styles\External\kendo.bootstrap.min.css" />
     <Content Include="Web\Styles\External\kendo.common-bootstrap.core.min.css" />
     <Content Include="Web\Styles\External\kendo.common.core.min.css" />
