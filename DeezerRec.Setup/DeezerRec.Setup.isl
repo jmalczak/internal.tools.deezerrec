@@ -1187,7 +1187,7 @@
 		<row><td>TemplateFolder</td><td>TARGETDIR</td><td>.:ShellNew</td><td/><td>0</td><td/></row>
 		<row><td>USERPROFILE</td><td>TARGETDIR</td><td>.:USERPR~1|UserProfile</td><td/><td>0</td><td/></row>
 		<row><td>VIEWS</td><td>WEB</td><td>Views</td><td/><td>0</td><td/></row>
-		<row><td>WEB</td><td>DEEZER_RECORDER</td><td>Web</td><td/><td>0</td><td/></row>
+		<row><td>WEB</td><td>INSTALLDIR</td><td>Web</td><td/><td>0</td><td/></row>
 		<row><td>WindowsFolder</td><td>TARGETDIR</td><td>.:Windows</td><td/><td>0</td><td/></row>
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
 		<row><td>deezer_1_deezer_recorder</td><td>ProgramMenuFolder</td><td>DEEZER~1|Deezer Recorder</td><td/><td>1</td><td/></row>
